@@ -69,3 +69,5 @@ crashlytics-build.properties
 # Misc
 /Assets/Samples/
 .DS_Store
+/.utmp/
+/UserSettings

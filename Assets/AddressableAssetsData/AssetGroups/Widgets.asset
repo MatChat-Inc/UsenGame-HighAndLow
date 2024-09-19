@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Widgets
+  m_EditorClassIdentifier: 
+  m_GroupName: Widgets
+  m_GUID: cda2137e5028cbf448e043a8ea045fe3
+  m_SerializeEntries:
+  - m_GUID: 0fed4de471319e7478fc81fb1ddc3a3d
+    m_Address: USEN.Games.Common.PopupOptionsView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Common
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e337da079c70e54a948a7271715ab8e
+    m_Address: USEN.Games.Roulette.RouletteEditView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2967fa821446f1549be2f712e2567646
+    m_Address: global.WidgetChild
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - global
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32634e36cb4371e43b2d989e9e1083ec
+    m_Address: USEN.Games.Roulette.RouletteGameView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47a110af9f5ede448896933caa6a6fc1
+    m_Address: USEN.Games.Common.AppInfoView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Common
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d347ec6cc10e794fbfa93fb6c9f4720
+    m_Address: USEN.Games.Common.CommendView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Common
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 600c78dba20a79c4d8476f538e27d9f7
+    m_Address: USEN.Games.HighLow.HighLowSettingsView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.HighLow
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b91dacf70a8a0a4297372b9acb20d75
+    m_Address: USEN.Games.Roulette.RouletteSettingsView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96b874bb70f59b04ba2d70862ad0bf4b
+    m_Address: USEN.Games.Roulette.RouletteContentList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 986660a2fbfab4e4f8315f171677a1e2
+    m_Address: USEN.Games.Roulette.RouletteGameSelectionView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98b9f96af753ec348ad19380f4bcfa41
+    m_Address: USEN.Games.Roulette.RouletteGameSelectionList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aabacd6beb79a644786614295621789a
+    m_Address: global.StatefulWidgetChild
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - global
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab08e89e0bc37cb4aa62934ce7221b32
+    m_Address: USEN.Games.Roulette.RouletteCategoryList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3dc8e32bc0cb3b4c83d876e18ae0fc6
+    m_Address: global.WidgetChild
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - global
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cab492afe31353d4aa721c22d4ca32ed
+    m_Address: global.StatefulWidgetChild
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - global
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d40d509746a3deb4d9f3f86e3d97d4c6
+    m_Address: USEN.Games.Roulette.RouletteCategoryView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0fe98d95d495be4a9acc931e4bbae7a
+    m_Address: USEN.Games.Roulette.RouletteStartView
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    - USEN.Games.Roulette
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5fb9abfb9f8a51d45b29881337ae0163, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6ff40a4a408cc0541b2203c98585df4e, type: 2}
+    - {fileID: 11400000, guid: 0195891d6c0f7f04d9c337dc394d28a0, type: 2}

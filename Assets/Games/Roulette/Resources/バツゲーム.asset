@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d87ad92fb447d9be53e21469acfd1b, type: 3}
+  m_Name: "\u30D0\u30C4\u30B2\u30FC\u30E0"
+  m_EditorClassIdentifier: 
+  title: "\u30D0\u30C4\u30B2\u30FC\u30E0"
+  roulettes:
+  - {fileID: 11400000, guid: 315517993566a394d949e3931897c1c1, type: 2}
+  - {fileID: 11400000, guid: c338189dc6b1ea945a1132927369832c, type: 2}
+  - {fileID: 11400000, guid: 0c8421f28c21faf40a43cda8b730c7e6, type: 2}
+  - {fileID: 11400000, guid: dfdaf49ee2732e545aa2a480a8e6722e, type: 2}
+  - {fileID: 11400000, guid: e7ca9df6b2e3e424c92292218f9a50ee, type: 2}
+  - {fileID: 11400000, guid: fc8cf868ff037694691f72e168b0fd7f, type: 2}
+  - {fileID: 11400000, guid: cd97915f4d1e1874496729b7219c272a, type: 2}
+  - {fileID: 11400000, guid: 075dc95f83a7bd444a6ab7c714a9c415, type: 2}
+  - {fileID: 11400000, guid: 561b68d9861e24145b60162ca791dd9d, type: 2}
+  - {fileID: 11400000, guid: 16a2d8e468d3c124eb9c748eacd71a26, type: 2}
