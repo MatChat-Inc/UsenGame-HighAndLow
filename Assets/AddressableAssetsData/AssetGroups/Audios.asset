@@ -16,7 +16,127 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: ea6271cd3ab1d004ab5dd8a55223ce6b
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 4832fe1ee69b84c44a81aa599ae836f4
+    m_Address: "Assets/Games/Common/Commend/Audios/\u30BF\u30F3\u30DB\u30A4\u30B6\u30FC\u3068\u30A2\u30A4\u30FC\u30C0\u30E1\u30C9\u30EC\u30FC.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 64c38bc74b7b7614bb368b0b3cdc077d
+    m_Address: "Assets/Games/Common/Commend/Audios/\u30CF\u30EC\u30EB\u30E4.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 7c17898fa483705468cc3c8dacaad1c4
+    m_Address: "Assets/Games/Common/Commend/Audios/\u5A01\u98A8\u5802\u3005.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: dffaf73c2e467db468919b7a40911146
+    m_Address: "Assets/Games/Common/Commend/Audios/\u898B\u3088\u3001\u52C7\u8005\u306F\u5E30\u308B.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 3d04672c53227314ba61fcefc49fcdb5
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_select.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: f34532dc56bb0a3478c4d3fe01c3d84a
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 0a2196bba1ff6034b9927dfb6cac43a6
+    m_Address: Assets/Games/Roulette/Audios/bgm_roulette_loop.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: cab7f89994c86e94ab23d6cff5040ac5
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 9a521da133e3fbe4d94ce188d13d1194
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_confirm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: c37d0f1c63b1649b1a0f344776bfccc9
+    m_Address: Assets/Resources/Audio/10sec.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 54b1bbeb92acd424d80a8b0e5d052c9b
+    m_Address: Assets/Resources/Audio/20sec.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: b99c332457dcf4e709f276fba4c19b15
+    m_Address: Assets/Resources/Audio/30sec.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 83be344fc082d4107969e4532eb5701a
+    m_Address: Assets/Resources/Audio/entry_bgm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 8155176a22cc94e6ba38928764c7ab21
+    m_Address: Assets/Resources/Audio/entry_key_select.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: b64887ed5052644cf997231340b42d0e
+    m_Address: Assets/Resources/Audio/high.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 1e2eb858f51cd476d879dd3888155a36
+    m_Address: Assets/Resources/Audio/key_back.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 7dcdfd5048c5dea449597262a9eeae23
+    m_Address: Assets/Resources/Audio/Key_effect.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 22613295ed4884c9c90a17325ae9c7fb
+    m_Address: Assets/Resources/Audio/key_start.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 803f5b66bac024a0f93741a535ca6bd7
+    m_Address: Assets/Resources/Audio/key_timer.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 36ada7173615e42e4873dec6564e073d
+    m_Address: Assets/Resources/Audio/low.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: bbb80af1f859b4dde88f6b6e29763f6b
+    m_Address: Assets/Resources/Audio/send_poker.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 48311c713f0f74c37b44148419951adb
+    m_Address: Assets/Resources/Audio/timer_start.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: f218f94cf72f946a09043522b3d69b4d
+    m_Address: Assets/Resources/HighAndLow/HightAndLowGame/Finish/Finish.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: c3ed0844b6a898347bd91b00644aa421
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_back.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5fb9abfb9f8a51d45b29881337ae0163, type: 2}
   m_SchemaSet:

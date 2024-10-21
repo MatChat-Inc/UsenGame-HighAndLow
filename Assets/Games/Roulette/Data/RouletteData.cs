@@ -2,36 +2,42 @@
 
 using System;
 using System.Collections.Generic;
+using Luna.Extensions;
+using Luna.Extensions.Unity;
 using Newtonsoft.Json;
-using Sirenix.OdinInspector;
+using SQLite;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace USEN.Games.Roulette
 {
-    // A roulette data object represents a single roulette wheel.
-    // It contains a list of sectors, each with a content and a weight.
-    [JsonObject(MemberSerialization.OptIn)]
-    [CreateAssetMenu(fileName = "Roulette", menuName = "Scriptable Objects/Roulette/Roulette")]
-    public class RouletteData : ScriptableObject
+    [Table("roulettes")]
+    public class RouletteData
     {
-        [ReadOnly] [JsonProperty] public string id;
-        [JsonProperty] public string title;
-        
-        [JsonProperty] 
-        [TableList(ShowIndexLabels = true, AlwaysExpanded = true, DrawScrollView = false)]
-        public List<RouletteSector> sectors = new();
+        [PrimaryKey] [AutoIncrement] [JsonIgnore] 
+        public int ID { get; set; }
 
+        public string Title { get; set; }
+        public long Timestamp { get; set; } = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        public string Category { get; set; }
+
+        public string SectorJson
+        {
+            get => JsonConvert.SerializeObject(sectors);
+            set => sectors = JsonConvert.DeserializeObject<List<RouletteSector>>(value);
+        }
+        
+        public List<RouletteSector> sectors = new();
+        
         public RouletteData()
         {
-            id = Guid.NewGuid().ToString();
+            // ID = Guid.NewGuid().ToString();
         }
         
         // Copy constructor.
         public RouletteData(RouletteData other)
         {
-            id = other.id;
-            title = other.title;
+            ID = other.ID;
+            Title = other.Title;
             sectors = new();
             for (int i = 0; i < other.sectors.Count; i++)
                 sectors.Add(new RouletteSector(other.sectors[i]));
@@ -39,18 +45,22 @@ namespace USEN.Games.Roulette
 
         public void OnValidate()
         {
-            if (string.IsNullOrEmpty(id))
-                id = Guid.NewGuid().ToString();
-            
-            if (string.IsNullOrEmpty(name))
-                title = base.name;
-            
             for (int i = 0; i < sectors.Count; i++)
             {
                 var sector = sectors[i];
                 sector.id = sectors.IndexOf(sector);
-                sector.color = Color.HSVToRGB(1.0f / sectors.Count * i, 0.5f, 1f);
+                sector.color = GetSectorColor(sector.id, sectors.Count);
             }
+        }
+        
+        public static Color GetSectorColor(int index, int count)
+        {
+            var color = Color.HSVToRGB(Mathf.Pow((1.0f / count * index - 0.02f).Mod(1), 1.35f), 1f, 1f);
+            color = color
+                .WithSaturation(0.85f * (1f - color.g * 0.2f))
+                .WithBrightness(Mathf.Clamp(1.4f * (1f - color.b * 0.5f) * (1f - color.g * 0.3f), 0, 1))
+                .WithAlpha(0.75f * (1f - color.b * 0.1f));
+            return color;
         }
     }
 }

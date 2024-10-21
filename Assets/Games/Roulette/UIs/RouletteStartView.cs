@@ -2,7 +2,6 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using Luna;
 using Luna.UI;
 using Luna.UI.Navigation;
@@ -10,7 +9,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using USEN.Games.Common;
 
 namespace USEN.Games.Roulette
 {
@@ -21,26 +19,30 @@ namespace USEN.Games.Roulette
         
         public AudioClip bgmClip;
         
-        private RouletteDAO _dao;
-        private RouletteDataset _dataset;
+        private RouletteManager _manager;
+        private RouletteCategories _categories;
         
         private void Start()
         {
-            EventSystem.current.SetSelectedGameObject(startButton.gameObject);
             BgmManager.Play(bgmClip);
             
-            startButton.interactable = false;
-            
             // Preload all roulette widgets
-            // Widget.Load(GetType().Namespace);
+            Assets.Load<Object>(GetType().Namespace, "Audio");
             
             // Load the roulette data
-            RouletteDAO.Instance.ContinueWith(async task => {
-                _dao = task.Result;
-                _dataset = _dao.Data;
-                startButton.interactable = true;
+            RouletteManager.Instance.Sync().ContinueWith(async task => {
+                _categories = task.Result;
                 EventSystem.current.SetSelectedGameObject(startButton.gameObject);
+                startButton.interactable = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+            
+            Navigator.Instance.onPopped += (route) => {
+                SFXManager.Play(R.Audios.SfxRouletteBack);
+            };
+
+#if UNITY_ANDROID
+            Debug.Log($"TV: {USEN.AndroidPreferences.TVIdentifier}");      
+#endif
         }
 
         private void Update()
@@ -49,11 +51,22 @@ namespace USEN.Games.Roulette
                 Input.GetButtonDown("Cancel")) {
                 OnExitButtonClicked();
             }
-
-            if (Input.GetKeyDown(KeyCode.A))
+#if UNITY_ANDROID
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                BgmManager.Play(bgmClip);
+                AndroidPreferences.Toast("Hello, Kotlin!");
             }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Luna.Android.ShowToast("Hello, Android!");
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Luna.Android.ShowToast(USEN.AndroidPreferences.TVIdentifier);
+            }
+#endif
         }
 
         private void OnDestroy()
@@ -66,22 +79,14 @@ namespace USEN.Games.Roulette
 
         public void OnStartButtonClicked()
         {
-            switch (RoulettePreferences.DisplayMode)
-            {
-                case RouletteDisplayMode.Normal:
-                    Navigator.Push<RouletteCategoryView>((view) => {
-                        view.Categories = _dataset.categories;
-                    });
-                    break;
-                case RouletteDisplayMode.Random:
-                    PlayRandomGame();
-                    break;
-            }
+            Navigator.Push<RouletteCategoryView>((view) => {
+                view.Categories = _categories.categories;
+            });
         }
 
         public void PlayRandomGame()
         {
-            var category = _dataset.categories.First(); //[Random.Range(0, _dataset.categories.Count)];
+            var category = _categories.categories.First(); //[Random.Range(0, _dataset.categories.Count)];
             var rouletteData = category.roulettes[Random.Range(0, category.roulettes.Count)];
             Navigator.Push<RouletteGameView>((view) => {
                 view.RouletteData = rouletteData;

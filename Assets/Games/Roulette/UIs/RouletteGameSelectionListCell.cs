@@ -17,7 +17,7 @@ public class RouletteGameSelectionListCell : FixedListViewCell<RouletteData>, IS
         set
         {
             _rouletteData = value;
-            text.text = value.title;
+            text.text = value.Title;
         }
     }
     

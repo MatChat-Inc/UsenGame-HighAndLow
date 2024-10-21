@@ -35,10 +35,6 @@ namespace USEN.Games.Roulette
             }
         }
 
-        void Awake()
-        {
-        }
-        
         public override void OnSelect(BaseEventData eventData)
         {
             base.OnSelect(eventData);

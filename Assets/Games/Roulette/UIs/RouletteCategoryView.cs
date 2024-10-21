@@ -22,15 +22,29 @@ namespace USEN.Games.Roulette
 
         void Start()
         {
-            listView.FocusOnCell(0);
-            
             if (Categories.IsNullOrEmpty())
             {
-                RouletteDAO.Instance.ContinueWith(task =>
+                var categories = RouletteManager.Instance.GetCategories();
+                if (!categories.IsNullOrEmpty())
                 {
-                    Categories = task.Result.Data.categories;
+                    Categories = categories;
+                    listView.FocusOnCell(0);
+                }
+                
+                RouletteManager.Instance.Sync().ContinueWith(task =>
+                {
+                    Categories = RouletteManager.Instance.GetCategories();
                     listView.FocusOnCell(0);
                 });
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (RouletteManager.Instance.IsDirty)
+            {
+                Categories = RouletteManager.Instance.GetCategories();
+                listView.FocusOnCell(0);
             }
         }
 
@@ -41,7 +55,6 @@ namespace USEN.Games.Roulette
                 Navigator.Pop();
             }
         }
-
         public void GotoRandomCategory(Action<RouletteGameSelectionView> callback = null)
         {
             var randomIndex = Random.Range(0, Categories.Count);

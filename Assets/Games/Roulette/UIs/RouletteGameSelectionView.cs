@@ -1,16 +1,14 @@
 // Created by LunarEclipse on 2024-6-21 1:45.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using Luna;
 using Luna.UI;
 using Luna.UI.Navigation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
 using USEN.Games.Common;
 
 namespace USEN.Games.Roulette
@@ -28,7 +26,7 @@ namespace USEN.Games.Roulette
         
         private EditMode _editMode;
         
-        private RouletteDAO _dao;
+        private RouletteManager _manager;
         private RouletteCategory _category;
         public RouletteCategory Category
         {
@@ -37,12 +35,13 @@ namespace USEN.Games.Roulette
             {
                 _category = value;
                 rouletteGameSelectionList.Data = value.roulettes;
+                
+                CheckRoulette();
 
                 if (value.title == "オリジナル")
                 {
                     _editMode = EditMode.Editable;
                     bottomPanel.redButton.gameObject.SetActive(true);
-                    bottomPanel.yellowButton.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -52,8 +51,6 @@ namespace USEN.Games.Roulette
                 }
 
                 titleText.text = value.title;
-
-                CheckRouletteVisibility();
             }
         }
         
@@ -61,13 +58,13 @@ namespace USEN.Games.Roulette
         
         private bool IsOriginal => Category.title == "オリジナル";
 
-        async void Awake()
+        private void Awake()
         {
             rouletteGameSelectionList.onCellSelected += (index, cell) => rouletteWheel.RouletteData = cell.Data;
             rouletteGameSelectionList.onCellSubmitted += (index, cell) => OnConfirmButtonClicked();
             rouletteContentList.onCellSubmitted += (index, cell) => OnConfirmButtonClicked();
             
-            _dao = await RouletteDAO.Instance;
+            _manager = RouletteManager.Instance;
         }
 
         private void Start()
@@ -84,6 +81,11 @@ namespace USEN.Games.Roulette
             bottomPanel.onRedButtonClicked += OnRedButtonClicked;
             bottomPanel.onBlueButtonClicked += OnBlueButtonClicked;
             bottomPanel.onYellowButtonClicked += OnYellowButtonClicked;
+
+            if (_manager.IsDirty)
+            {
+                Category = _manager.GetCategory(Category.title);
+            }
         }
 
         private void OnDisable()
@@ -100,7 +102,7 @@ namespace USEN.Games.Roulette
                 OnExitButtonClicked();
             }
             
-            CheckRouletteVisibility();
+            CheckRoulette();
         }
         
         public void OnConfirmButtonClicked()
@@ -134,7 +136,8 @@ namespace USEN.Games.Roulette
         public async void OnBlueButtonClicked()
         {
             // Jump back to original category if not in original category
-            if (_editMode == EditMode.Readonly)
+            if (_editMode == EditMode.Readonly && 
+                Category.roulettes.Count > 0)
             {
                 var categoryView = Navigator.BackTo<RouletteCategoryView>();
                 categoryView?.GotoOriginalCategory(view => {
@@ -150,18 +153,18 @@ namespace USEN.Games.Roulette
             // Add to category and save
             if (result != null)
             {
+                result.Category = "オリジナル";
+                
                 if (IsOriginal)
                 {
                     Category.roulettes[rouletteGameSelectionList.SelectedIndex] = result;
                     rouletteWheel.RouletteData = result;
                     rouletteGameSelectionList.Reload();
+                    _manager.UpdateRoulette(result);
                 }
-                else
-                {
-                    _dao?.Data?.categories?.Last()?.roulettes?.Add(result);
-                }
+                else _manager.AddRoulette(result);
                 
-                _dao?.SaveToFile();
+                _manager.Sync();
             }
         }
 
@@ -169,7 +172,7 @@ namespace USEN.Games.Roulette
         {
             // Create new roulette
             var roulette = new RouletteData();
-            roulette.title = "新規ルーレット";
+            roulette.Title = "新規ルーレット";
             roulette.sectors = new List<RouletteSector>();
             for (int i = 0; i < 8; i++)
             {
@@ -177,7 +180,6 @@ namespace USEN.Games.Roulette
                 {
                     content = $"",
                     weight = 1,
-                    color = Color.HSVToRGB(1.0f / 8 * i, 0.5f, 1f),
                 });
             }
             
@@ -189,6 +191,14 @@ namespace USEN.Games.Roulette
             // Add to category and save
             if (result != null)
             {
+                // Set color for each sector
+                for (int i = 0; i < result.sectors.Count; i++)
+                {
+                    var sector = result.sectors[i];
+                    sector.id = i;
+                    sector.color = RouletteData.GetSectorColor(i, result.sectors.Count);
+                }
+                
                 if (IsOriginal)
                 {
                     Category.roulettes.Add(result);
@@ -197,30 +207,37 @@ namespace USEN.Games.Roulette
                     rouletteGameSelectionList.Select(Category.roulettes.Count - 1);
                     rouletteWheel.RouletteData = result;
                 }
-                else
-                {
-                    _dao?.Data?.categories?.Last()?.roulettes?.Add(result);
-                }
                 
-                _dao?.SaveToFile();
+                result.Category = "オリジナル";
+                
+                _manager.AddRoulette(result);
+                _manager?.Sync();
             }
+            
+            CheckRoulette();
         }
         
         public void OnYellowButtonClicked()
         {
-            if (rouletteGameSelectionList.gameObject.activeSelf && 
+            if (rouletteGameSelectionList.gameObject.activeSelf &&
                 rouletteGameSelectionList.Data.Count > 0)
+            {
+                _manager.DeleteRoulette(rouletteGameSelectionList.SelectedData);
                 rouletteGameSelectionList.Remove(rouletteGameSelectionList.SelectedIndex);
-                
-            if (rouletteContentList.gameObject.activeSelf && 
+            }
+
+            if (rouletteContentList.gameObject.activeSelf &&
                 rouletteContentList.Data.Count > 2)
+            {
                 rouletteContentList.Remove(rouletteContentList.SelectedIndex);
+                _manager.UpdateRoulette(rouletteGameSelectionList.SelectedData);
+            }
             
             if (rouletteGameSelectionList.Data.Count > 0)
                 rouletteWheel.RouletteData = rouletteGameSelectionList.SelectedData;
             else rouletteWheel.RouletteData = null;
-            
-            _dao?.SaveToFile();
+
+            CheckRoulette();
         }
         
         private void ShowContentView()
@@ -237,12 +254,27 @@ namespace USEN.Games.Roulette
                 rouletteContentList.gameObject.SetActive(false);
                 rouletteGameSelectionList.gameObject.SetActive(true);
                 rouletteGameSelectionList.Select(rouletteGameSelectionList.SelectedIndex);
+                SFXManager.Stop();
+                SFXManager.Play(R.Audios.SfxRouletteBack);
             }
         }
         
-        private void CheckRouletteVisibility()
+        private void CheckRoulette()
         {
-            RouletteGameObject.SetActive(rouletteGameSelectionList.Data.Count > 0);
+            var hasRoulette = Category.roulettes.Count > 0;
+            
+            RouletteGameObject.SetActive(hasRoulette);
+
+            if (Category.title == "オリジナル")
+            {
+                bottomPanel.blueButton.gameObject.SetActive(hasRoulette);
+                bottomPanel.yellowButton.gameObject.SetActive(hasRoulette);
+            }
+        }
+        
+        private void ReloadCategory()
+        {
+            Category = _manager.GetCategory(Category.title);
         }
         
         private enum EditMode

@@ -15,11 +15,12 @@ namespace R
         public static Asset<AudioClip> ハレルヤ => new("Assets/Games/Common/Commend/Audios/ハレルヤ.mp3");
         public static Asset<AudioClip> 威風堂々 => new("Assets/Games/Common/Commend/Audios/威風堂々.mp3");
         public static Asset<AudioClip> 見よ勇者は帰る => new("Assets/Games/Common/Commend/Audios/見よ、勇者は帰る.mp3");
-        public static Asset<AudioClip> RouletteBgmLoop => new("Assets/Games/Roulette/Audios/Roulette_BGM_Loop.mp3");
-        public static Asset<AudioClip> ルーレット回転音 => new("Assets/Games/Roulette/Audios/ルーレット回転音.mp3");
-        public static Asset<AudioClip> ルーレット操作音戻る => new("Assets/Games/Roulette/Audios/ルーレット操作音_戻る.mp3");
-        public static Asset<AudioClip> ルーレット操作音決定 => new("Assets/Games/Roulette/Audios/ルーレット操作音_決定.mp3");
-        public static Asset<AudioClip> ルーレット操作音選択 => new("Assets/Games/Roulette/Audios/ルーレット操作音_選択.mp3");
+        public static Asset<AudioClip> BgmRouletteLoop => new("Assets/Games/Roulette/Audios/bgm_roulette_loop.mp3");
+        public static Asset<AudioClip> SfxRouletteBack => new("Assets/Games/Roulette/Audios/sfx_roulette_back.mp3");
+        public static Asset<AudioClip> SfxRouletteConfirm => new("Assets/Games/Roulette/Audios/sfx_roulette_confirm.mp3");
+        public static Asset<AudioClip> SfxRouletteGameDecelerating => new("Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3");
+        public static Asset<AudioClip> SfxRouletteGameRotating => new("Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3");
+        public static Asset<AudioClip> SfxRouletteSelect => new("Assets/Games/Roulette/Audios/sfx_roulette_select.mp3");
         public static AudioClip _10Sec => Resources.Load<AudioClip>("Audio/10sec");
         public static AudioClip _20Sec => Resources.Load<AudioClip>("Audio/20sec");
         public static AudioClip _30Sec => Resources.Load<AudioClip>("Audio/30sec");

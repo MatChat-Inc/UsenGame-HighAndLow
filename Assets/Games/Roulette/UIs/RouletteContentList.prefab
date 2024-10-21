@@ -69,8 +69,7 @@ MonoBehaviour:
   m_text: "\u30D0\u30C4\u30B2\u30FC\u30E0\n\u30D0\u30C4\u30B2\u30FC\u30E0\n\u30D0\u30C4\u30B2\u30FC\u30E0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cce7696552409b747a108f5e2a2e356f, type: 2}
-  m_sharedMaterial: {fileID: -3195092689909621475, guid: cce7696552409b747a108f5e2a2e356f,
-    type: 2}
+  m_sharedMaterial: {fileID: -3195092689909621475, guid: cce7696552409b747a108f5e2a2e356f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -507,10 +506,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6105c665a942c5bd61bddc5f07e7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: []
   cell: {fileID: 8489434640864021694}
   snapToCellWhenSelected: 1
-  selectFirstCellOnEnable: 1
+  selectFirstCellOnEnable: 0
   selectFirstCellOnReload: 1
   keepSelectionOnReload: 1
 --- !u!225 &8017552239261323009
@@ -542,7 +540,7 @@ GameObject:
   - component: {fileID: 8489434640864021694}
   - component: {fileID: 7012414329157812453}
   m_Layer: 5
-  m_Name: Cell
+  m_Name: ContentCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

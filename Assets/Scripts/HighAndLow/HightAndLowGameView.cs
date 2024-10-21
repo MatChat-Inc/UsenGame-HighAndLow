@@ -10,7 +10,7 @@ using Luna.UI.Navigation;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Playables;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using USEN.Assets;
+using USEN;
 using USEN.Games.Common;
 using USEN.Games.Roulette;
 using Random = UnityEngine.Random;
@@ -288,8 +288,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
         {
             await Navigator.Push<USEN.Games.Roulette.RouletteGameView>(async (view) => {
-                var dao = await RouletteDAO.Instance;
-                view.RouletteData = dao.GetRandomRoulette();
+                view.RouletteData = RouletteManager.Instance.GetRandomRoulette();
                 _isRouletteShowing = true;
             });
         }

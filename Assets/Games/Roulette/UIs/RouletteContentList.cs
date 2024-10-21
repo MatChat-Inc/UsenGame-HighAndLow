@@ -1,18 +1,22 @@
 // Created by LunarEclipse on 2024-7-6 21:4.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using Luna.Extensions;
+using Luna;
 using Luna.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace USEN.Games.Roulette
 {
     public class RouletteContentList : FixedListView<RouletteContentListCell, RouletteSector>
     {
+        protected override void OnCellSubmitted(int index, RouletteContentListCell listViewCell)
+        {
+            SFXManager.Play(R.Audios.SfxRouletteConfirm);
+        }
+
+        protected override void OnCellSelected(int index, RouletteContentListCell listViewCell)
+        {
+            if (Initialized)
+                SFXManager.Play(R.Audios.SfxRouletteSelect);
+        }
     }
 }

@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using Luna.Core.Pool;
-using Luna.UI;
+using Luna;
 using Luna.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace USEN.Games.Roulette
 {
@@ -18,7 +10,7 @@ namespace USEN.Games.Roulette
     {
         protected override void OnCellSubmitted(int index, RouletteGameSelectionListCell listViewCell)
         {
-            
+            SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
 
         protected override void OnCellDeselected(int index, RouletteGameSelectionListCell listViewCell)
@@ -29,6 +21,9 @@ namespace USEN.Games.Roulette
         protected override void OnCellSelected(int index, RouletteGameSelectionListCell listViewCell)
         {
             listViewCell.text.color = Color.black;
+            
+            if (Initialized)
+                SFXManager.Play(R.Audios.SfxRouletteSelect);
         }
     }
 

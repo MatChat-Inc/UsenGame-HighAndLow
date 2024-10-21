@@ -1,6 +1,5 @@
 // Created by LunarEclipse on 2024-6-30 18:50.
 
-using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -16,7 +15,6 @@ using UnityEngine.InputSystem.Controls;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using USEN.Assets;
 using USEN.Games.Common;
 
 namespace USEN.Games.Roulette
@@ -30,6 +28,8 @@ namespace USEN.Games.Roulette
         public TextMeshProUGUI confirmText;
 
         private AsyncOperationHandle<AudioClip>? _audioClipHandle;
+        
+        private bool _isStopping = false;
 
         public RouletteData RouletteData
         {
@@ -71,7 +71,6 @@ namespace USEN.Games.Roulette
 
         private void Start()
         {
-            EventSystem.current.SetSelectedGameObject(startButton.gameObject);
             AssetUtils.LoadAsync<CommendView>().ContinueWith(task =>
             {
                 var go = task.Result;
@@ -92,6 +91,8 @@ namespace USEN.Games.Roulette
 
         private void OnDestroy()
         {
+            SFXManager.StopAll();
+            
             AssetUtils.Unload<CommendView>();
             if (_audioClipHandle != null)
                 Addressables.Release(_audioClipHandle.Value);
@@ -132,28 +133,20 @@ namespace USEN.Games.Roulette
             PopupConfirmView();
         }
 
-        private void OnBlueButtonClicked()
+        private async void OnBlueButtonClicked()
         {
             Navigator.Pop();
             
-            if (Navigator.Instance.TopWidget is not RouletteGameSelectionView)
+            if (Navigator.Instance.TopWidget is RouletteCategoryView categoryView)
             {
-                Navigator.Push<RouletteCategoryView>(async view => {
-                    await UniTask.NextFrame();
-                    view.GotoRandomCategory();
-                });
+                await UniTask.NextFrame();
+                categoryView.GotoRandomCategory();
             }
         }
 
         private void OnRedButtonClicked()
         {
-            Navigator.Pop();
-            Navigator.Pop();
-            
-            if (Navigator.Instance.TopWidget is not RouletteGameSelectionView)
-            {
-                Navigator.Push<RouletteCategoryView>();
-            }
+            Navigator.PopUntil<RouletteCategoryView>();
         }
 
         private async void OnYellowButtonClicked()
@@ -177,6 +170,8 @@ namespace USEN.Games.Roulette
             
             // Show yellow button
             bottomPanel.yellowButton.gameObject.SetActive(true);
+            
+            _isStopping = false;
         }
 
         private async Task SpinWheel()
@@ -184,7 +179,11 @@ namespace USEN.Games.Roulette
             Debug.Log("Start button clicked.");
 
             // Hide buttons
-            startButton.gameObject.SetActive(false);
+            if (startButton.gameObject.activeSelf)
+            {
+                startButton.gameObject.SetActive(false);
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+            }
 
             // Spin the wheel
             // rouletteWheel.SpinWheel();
@@ -194,11 +193,17 @@ namespace USEN.Games.Roulette
             // await UniTask.Delay((int)((rouletteWheel.spinDuration - 2) * 1000));
             // rouletteWheel.transform.parent.DOLocalMoveX(960, 1f).SetEase(Ease.InOutSine);
             // rouletteWheel.transform.parent.DOScale(3f, 1f).SetEase(Ease.InOutSine);
+            
+            // Play sfx
+            SFXManager.PlayRepeatedly(R.Audios.SfxRouletteGameRotating);
         }
         
         private async Task StopWheel()
         {
             Debug.Log("Stop button clicked.");
+            
+            if (_isStopping) return;
+            _isStopping = true;
 
             // Stop the wheel
             rouletteWheel.StopSpin();
@@ -207,6 +212,10 @@ namespace USEN.Games.Roulette
             // await UniTask.Delay(1000);
             rouletteWheel.transform.parent.DOLocalMoveX(960, 1f).SetEase(Ease.InOutSine);
             rouletteWheel.transform.parent.DOScale(3f, 1f).SetEase(Ease.InOutSine);
+            
+            // Stop sfx and play another sfx
+            SFXManager.Stop(R.Audios.SfxRouletteGameRotating);
+            SFXManager.Play(R.Audios.SfxRouletteGameDecelerating);
         }
 
         private void PopupConfirmView()

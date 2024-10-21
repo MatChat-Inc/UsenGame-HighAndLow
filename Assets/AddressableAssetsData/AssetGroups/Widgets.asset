@@ -35,8 +35,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     - global
-  - m_GUID: 32634e36cb4371e43b2d989e9e1083ec
-    m_Address: USEN.Games.Roulette.RouletteGameView
+  - m_GUID: 96b874bb70f59b04ba2d70862ad0bf4b
+    m_Address: USEN.Games.Roulette.RouletteContentList
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
@@ -65,14 +65,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     - USEN.Games.Roulette
-  - m_GUID: 96b874bb70f59b04ba2d70862ad0bf4b
-    m_Address: USEN.Games.Roulette.RouletteContentList
+  - m_GUID: 986660a2fbfab4e4f8315f171677a1e2
+    m_Address: USEN.Games.Roulette.RouletteGameSelectionView
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
     - USEN.Games.Roulette
-  - m_GUID: 986660a2fbfab4e4f8315f171677a1e2
-    m_Address: USEN.Games.Roulette.RouletteGameSelectionView
+  - m_GUID: ab08e89e0bc37cb4aa62934ce7221b32
+    m_Address: USEN.Games.Roulette.RouletteCategoryList
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
@@ -89,8 +89,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     - global
-  - m_GUID: ab08e89e0bc37cb4aa62934ce7221b32
-    m_Address: USEN.Games.Roulette.RouletteCategoryList
+  - m_GUID: 32634e36cb4371e43b2d989e9e1083ec
+    m_Address: USEN.Games.Roulette.RouletteGameView
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI

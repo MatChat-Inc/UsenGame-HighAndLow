@@ -65,14 +65,12 @@ namespace USEN.Games.Roulette
         public override void OnSelect(BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            Debug.Log($"[RouletteEditListCell] OnSelect: {Index}");
             inputField.DeactivateInputField();
         }
         
         public override async void OnSubmit(BaseEventData eventData)
         {
             base.OnSubmit(eventData);
-            Debug.Log($"[RouletteEditListCell] OnSubmit: {Index}");
             
             await UniTask.NextFrame();
             inputField.Select();

@@ -2,8 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using Luna;
 using Luna.UI;
 using Luna.UI.Navigation;
 using TMPro;
@@ -46,7 +48,7 @@ namespace USEN.Games.Roulette
                         title.text = "編集";
                     else title.text = "新規作成";
                 }
-                gameTitle.text = value.title;
+                gameTitle.text = value.Title;
                 sectorListView.Data = _data.sectors;
                 sectorCounter.text = $"{value.sectors.Count}";
             }
@@ -56,7 +58,7 @@ namespace USEN.Games.Roulette
         {
             gameTitle.onValueChanged.AddListener((value) =>
             {
-                Data.title = value;
+                Data.Title = value;
             });
             
             sectorListView.onCellCreated += (index, cell) =>
@@ -87,9 +89,7 @@ namespace USEN.Games.Roulette
             bottomPanel.onRedButtonClicked += () =>
             {
                 Navigator.Pop(Data);
-                RouletteDAO.Instance.ContinueWith(async task => {
-                    task.Result?.SaveToFile();
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                RouletteManager.Instance.Sync();
             };
             
             // Delete the selected sector when the yellow button is clicked
@@ -107,12 +107,12 @@ namespace USEN.Games.Roulette
         private void OnEnable()
         {
             EventSystem.current.SetSelectedGameObject(titleCell.gameObject);
-            base.OnKey += OnKey;
+            base.OnKey += OnKeyEvent;
         }
 
         private void OnDisable()
         {
-            base.OnKey -= OnKey;
+            base.OnKey -= OnKeyEvent;
         }
 
         private async void Start()
@@ -125,8 +125,6 @@ namespace USEN.Games.Roulette
         
         private void Update()
         {
-            // Debug.Log($"[RouletteEditView] Update: {IsEditing}");
-            
             if (Input.GetKeyDown(KeyCode.Escape) ||
                 Input.GetButtonDown("Cancel")) {
                 if (!_isEditing) Navigator.Pop();
@@ -140,33 +138,30 @@ namespace USEN.Games.Roulette
                     RemoveSector();
             }
             
-            if(sectorListView.Selected)
-                bottomPanel.yellowButton.gameObject.SetActive(true);
-            else bottomPanel.yellowButton.gameObject.SetActive(false);
+            // if(sectorListView.Selected)
+            //     bottomPanel.yellowButton.gameObject.SetActive(true);
+            // else bottomPanel.yellowButton.gameObject.SetActive(false);
         }
 
-        private KeyEventResult OnKey(KeyControl key, KeyEvent keyEvent)
+        private KeyEventResult OnKeyEvent(KeyControl key, KeyEvent keyEvent)
         {
             // Debug.Log($"[RouletteEditView] Key pressed: {key.keyCode} with event: {keyEvent}");
-            // Debug.Log($"[RouletteEditView] Current selected: {EventSystem.current.currentSelectedGameObject}");
+            var cell = sectorListView.cells.First()?.gameObject;
+            Debug.Log($"[RouletteEditView] Current selected: {EventSystem.current.currentSelectedGameObject}");
+            // Debug.Log($"[RouletteEditView] IsEditing: {IsEditing}");
             
-            // if (keyEvent == KeyEvent.KeyDown &&
-            //     EventSystem.current.currentSelectedGameObject == sectorCounterButton.gameObject)
-            // {
-            //     switch (key.keyCode)
-            //     {
-            //         case Key.RightArrow:
-            //             AddSector();
-            //             break;
-            //         case Key.LeftArrow:
-            //             RemoveSector();
-            //             break;
-            //     }
-            // }
-            // if (!IsEditing) Navigator.Pop();
+            if (keyEvent == KeyEvent.Down)
+            {
+                if (key.keyCode == Key.UpArrow && (
+                    EventSystem.current.currentSelectedGameObject == sectorCounterButton.gameObject ||
+                    EventSystem.current.currentSelectedGameObject == sectorListView.cells.First()?.gameObject))
+                    SFXManager.Play(R.Audios.SfxRouletteSelect);
+                
+                if (key.keyCode == Key.DownArrow && 
+                    EventSystem.current.currentSelectedGameObject == titleCell.gameObject)
+                    SFXManager.Play(R.Audios.SfxRouletteSelect);
+            }
             
-            
-            // Debug.Log($"[RouletteEditView] Key pressed: {IsEditing} with event: {keyEvent}");
             if (keyEvent == KeyEvent.Down)
             {
                 _isEditing = EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_InputField>()?.isFocused ?? false;

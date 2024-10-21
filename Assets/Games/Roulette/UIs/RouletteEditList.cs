@@ -1,5 +1,6 @@
 // Created by LunarEclipse on 2024-7-12 21:50.
 
+using Luna;
 using Luna.UI;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace USEN.Games.Roulette
 
         protected override void OnCellSelected(int index, RouletteEditListCell listViewCell)
         {
-            
+            SFXManager.Play(R.Audios.SfxRouletteSelect);
         }
     }
 }
