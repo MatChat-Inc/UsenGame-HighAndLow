@@ -9,7 +9,7 @@ namespace USEN.Games.Roulette
 {
     public class RouletteSector
     {
-        public int id;
+        [JsonIgnore] public int id;
         public string content; 
         public float weight = 1;
         [JsonIgnore] public Color color;

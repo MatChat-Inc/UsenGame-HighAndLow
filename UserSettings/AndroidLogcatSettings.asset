@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "309af56c",
         "name": "com.usen.uhighandlow",
-        "processId": 31986,
+        "processId": 1527,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -24,6 +24,18 @@
             "deviceId": "309af56c",
             "name": "com.usen.uhighandlow",
             "processId": 31986,
+            "exited": false
+        },
+        {
+            "deviceId": "309af56c",
+            "name": "com.usen.uhighandlow",
+            "processId": 302,
+            "exited": false
+        },
+        {
+            "deviceId": "309af56c",
+            "name": "com.usen.uhighandlow",
+            "processId": 1527,
             "exited": false
         }
     ],

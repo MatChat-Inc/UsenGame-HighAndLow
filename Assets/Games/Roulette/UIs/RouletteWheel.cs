@@ -271,7 +271,7 @@ namespace USEN.Games.Roulette
             
             for (int j = 0; j <= segmentsPerSector; j++)
             {
-                float angle = Mathf.Lerp(startAngle, endAngle, (float)j  * (1 - sectorInterval) / segmentsPerSector);
+                float angle = Mathf.Lerp(startAngle, endAngle, j * (1 - sectorInterval * 360f / sectorAngle) / segmentsPerSector);
                 Vector3 point = new Vector3(
                     Mathf.Cos(Mathf.Deg2Rad * angle) * radius, 
                     Mathf.Sin(Mathf.Deg2Rad * angle) * radius, 

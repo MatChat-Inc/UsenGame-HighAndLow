@@ -24,13 +24,6 @@ namespace USEN.Games.Roulette
         {
             if (Categories.IsNullOrEmpty())
             {
-                var categories = RouletteManager.Instance.GetCategories();
-                if (!categories.IsNullOrEmpty())
-                {
-                    Categories = categories;
-                    listView.FocusOnCell(0);
-                }
-                
                 RouletteManager.Instance.Sync().ContinueWith(task =>
                 {
                     Categories = RouletteManager.Instance.GetCategories();

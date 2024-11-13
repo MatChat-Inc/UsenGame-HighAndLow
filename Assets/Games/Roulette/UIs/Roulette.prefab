@@ -137,10 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b9ec61aa1949a6ae5854cf87236dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rouletteData: {fileID: 0}
   radius: 3.75
   segmentsPerSector: 10
-  sectorInterval: 0.05
+  sectorInterval: 0.005
   angleOffset: 180
   clockwise: 1
   font: {fileID: 11400000, guid: aeafe3b2832e99740b7f7efb3f866985, type: 2}

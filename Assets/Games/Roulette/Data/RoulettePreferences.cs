@@ -15,6 +15,18 @@ namespace USEN.Games.Roulette
             get => PlayerPrefs.GetInt("Roulette.CommendationVideoOption", 0);
             set => PlayerPrefs.SetInt("Roulette.CommendationVideoOption", value);
         }
+        
+        public static float BgmVolume
+        {
+            get => PlayerPrefs.GetFloat("Roulette.BgmVolume", 1);
+            set => PlayerPrefs.SetFloat("Roulette.BgmVolume", value);
+        }
+        
+        public static float SfxVolume
+        {
+            get => PlayerPrefs.GetFloat("Roulette.SfxVolume", 1);
+            set => PlayerPrefs.SetFloat("Roulette.SfxVolume", value);
+        }
     }
     
     public enum RouletteDisplayMode

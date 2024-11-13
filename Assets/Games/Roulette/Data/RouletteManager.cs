@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SQLite;
 using UnityEngine;
+using Usen;
 
 namespace USEN.Games.Roulette
 {
@@ -18,10 +19,12 @@ namespace USEN.Games.Roulette
         public bool IsDirty { get; private set; }
         
         public readonly SQLiteConnection db;
+
+        private int _version = 1;
         
         private RouletteManager(string databaseName = null)
         {
-            var databasePath = Path.Combine(Application.persistentDataPath, "DB", databaseName ?? "roulette.db");
+            var databasePath = Path.Combine(Application.persistentDataPath, "DB", databaseName ?? $"roulette.db");
             var databaseDirectory = Path.GetDirectoryName(databasePath);
 
             // Create the directory if it doesn't exist.
@@ -30,6 +33,8 @@ namespace USEN.Games.Roulette
 
             db = new SQLiteConnection(databasePath);
             db.CreateTable<RouletteData>();
+            
+            UpdateTable();
             
             if (!db.Table<RouletteData>().Any())
             {
@@ -50,12 +55,11 @@ namespace USEN.Games.Roulette
                         }
                 });
             }
-
         }
         
         public Task<RouletteCategories> Sync()
         {
-            return Usen.API.GetRoulettes().ContinueWith(task =>
+            return Usen.API.GetRouletteCategories().ContinueWith(task =>
             {
                 if (task.IsFaulted)
                 {
@@ -141,10 +145,17 @@ namespace USEN.Games.Roulette
             return batuGames[UnityEngine.Random.Range(0, batuGames.Count - 1)];
         }
         
-        public void AddRoulette(RouletteData roulette)
+        public async Task AddRoulette(RouletteData roulette)
         {
             db.Insert(roulette);
             IsDirty = true;
+            var response = await API.AddRoulette(roulette);
+            
+            // Update ID with the response.
+            roulette.ID = response.id;
+            db.Update(roulette);
+            
+            IsDirty = false;
         }
         
         public void InsertFromJsonList(string json)
@@ -165,12 +176,28 @@ namespace USEN.Games.Roulette
         {
             db.Update(roulette);
             IsDirty = true;
+            API.UpdateRoulette(roulette).ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.LogWarning($"[RouletteManager] Update failed: {task.Exception}");
+                    IsDirty = false;
+                }
+            });
         }
         
         public void DeleteRoulette(RouletteData roulette)
         {
             db.Delete(roulette);
             IsDirty = true;
+            API.DeleteRoulette(roulette.ID).ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.LogWarning($"[RouletteManager] Delete failed: {task.Exception}");
+                    IsDirty = false;
+                }
+            });
         }
         
         public void DeleteAll()
@@ -178,5 +205,48 @@ namespace USEN.Games.Roulette
             db.DeleteAll<RouletteData>();
             IsDirty = true;
         }
+        
+        private void UpdateTable()
+        {
+            var tableName = db.GetMapping<RouletteData>().TableName;
+            
+            // Check version and update database if necessary.
+            var version = db.ExecuteScalar<int>("PRAGMA user_version");
+            if (version < _version)
+            {
+                Debug.LogWarning($"[RouletteManager] Database version is outdated. Updating from {version} to {_version}.");
+
+                // Copy old data to new table.
+                try
+                {
+                    db.RunInTransaction(() =>
+                    {
+                        // Rename old table.
+                        db.Execute($"ALTER TABLE {tableName} RENAME TO old_{tableName}");
+
+                        // Create new table.
+                        db.CreateTable<RouletteData>();
+
+                        var oldData = db.Query<OldRouletteData>($"SELECT * FROM old_{tableName}");
+                        foreach (var old in oldData)
+                        {
+                            var roulette = new RouletteData(old);
+                            db.Insert(roulette);
+                        }
+
+                        // Drop old table.
+                        db.Execute($"DROP TABLE old_{tableName}");
+                    });
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[RouletteManager] Failed to update database: {e.Message}");
+                }
+            }
+            
+            // Update version.
+            db.Execute($"PRAGMA user_version = {_version}");
+        }
+        
     }
 }

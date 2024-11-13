@@ -82,10 +82,10 @@ namespace USEN.Games.Roulette
             bottomPanel.onBlueButtonClicked += OnBlueButtonClicked;
             bottomPanel.onYellowButtonClicked += OnYellowButtonClicked;
 
-            if (_manager.IsDirty)
-            {
-                Category = _manager.GetCategory(Category.title);
-            }
+            // if (_manager.IsDirty)
+            // {
+            //     Category = _manager.GetCategory(Category.title);
+            // }
         }
 
         private void OnDisable()
@@ -164,7 +164,7 @@ namespace USEN.Games.Roulette
                 }
                 else _manager.AddRoulette(result);
                 
-                _manager.Sync();
+                // _manager.Sync();
             }
         }
 
@@ -211,7 +211,7 @@ namespace USEN.Games.Roulette
                 result.Category = "オリジナル";
                 
                 _manager.AddRoulette(result);
-                _manager?.Sync();
+                // _manager?.Sync();
             }
             
             CheckRoulette();
