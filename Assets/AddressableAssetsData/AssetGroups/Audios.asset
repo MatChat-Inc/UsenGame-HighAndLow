@@ -37,13 +37,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: 3d04672c53227314ba61fcefc49fcdb5
-    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_select.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: f34532dc56bb0a3478c4d3fe01c3d84a
-    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3
+  - m_GUID: c3ed0844b6a898347bd91b00644aa421
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_back.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
@@ -52,13 +47,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: cab7f89994c86e94ab23d6cff5040ac5
-    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3
+  - m_GUID: f34532dc56bb0a3478c4d3fe01c3d84a
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
   - m_GUID: 9a521da133e3fbe4d94ce188d13d1194
     m_Address: Assets/Games/Roulette/Audios/sfx_roulette_confirm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: cab7f89994c86e94ab23d6cff5040ac5
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
@@ -132,8 +132,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: c3ed0844b6a898347bd91b00644aa421
-    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_back.mp3
+  - m_GUID: 3d04672c53227314ba61fcefc49fcdb5
+    m_Address: Assets/Games/Roulette/Audios/sfx_roulette_select.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
