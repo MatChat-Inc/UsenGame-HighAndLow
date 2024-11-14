@@ -262,6 +262,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         }
 
         _isPopupViewShowed = m_terminalView?.MainGameObject.activeInHierarchy == true;
+        
+        m_startTimerBtn.gameObject.SetActive(m_isWaitTimer);
     }
 
     void OnClickedHistoryButton() {
