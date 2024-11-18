@@ -60,6 +60,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     
     private bool _isPopupViewShowed;
     private bool _isRouletteShowing;
+    bool _isResultShowing;
     
     private AsyncOperationHandle<AudioClip>? _audioClipHandle;
     
@@ -255,7 +256,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             }
         }
 
-        if (!m_isGameFinished && !_isPopupViewShowed && !_isRouletteShowing) {
+        if (!m_isGameFinished && !_isPopupViewShowed && !_isRouletteShowing && !_isResultShowing) {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Submit")) {
                 OnClickedConfirmBtn();
             }
@@ -426,6 +427,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     void ShowResult() {
+        _isResultShowing = true;
+        
         HideTimer();
         ShowResultButtons();
 
@@ -491,6 +494,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
                     _finishDirector.Play();
                 });
             }
+            
+            _isResultShowing = false;
         });
         
         Sequence sequence = DOTween.Sequence();
