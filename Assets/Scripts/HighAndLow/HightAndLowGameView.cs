@@ -60,8 +60,9 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     
     private bool _isPopupViewShowed;
     private bool _isRouletteShowing;
-    bool _isResultShowing;
-    bool _isResultAnimating;
+    private bool _isCommendationShowing;
+    private bool _isResultShowing;
+    private bool _isResultAnimating;
     
     private AsyncOperationHandle<AudioClip>? _audioClipHandle;
     
@@ -175,7 +176,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
 
     public void OnAndroidKeyDown(string keyName)
     {
-        if (_isPopupViewShowed || _isRouletteShowing)
+        if (_isPopupViewShowed || _isRouletteShowing || _isCommendationShowing)
             return;
         
         if (keyName == "blue")
@@ -307,11 +308,14 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         _isRouletteShowing = false;
     }
 
-    async void OnClickedWinnerBtn() {
+    async void OnClickedWinnerBtn() 
+    {
+        _isCommendationShowing = true;
         AudioManager.Instance.PlayKeyStartEffect();
         AudioManager.Instance.PauseBgm();
         await Navigator.Push<CommendView>();
         AudioManager.Instance.UnPauseBgm();
+        _isCommendationShowing = false;
     }
 
     void OnClickedConfirmBtn()
