@@ -61,6 +61,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     private bool _isPopupViewShowed;
     private bool _isRouletteShowing;
     bool _isResultShowing;
+    bool _isResultAnimating;
     
     private AsyncOperationHandle<AudioClip>? _audioClipHandle;
     
@@ -256,7 +257,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             }
         }
 
-        if (!m_isGameFinished && !_isPopupViewShowed && !_isRouletteShowing && !_isResultShowing) {
+        if (!m_isGameFinished && !_isPopupViewShowed && !_isRouletteShowing && !_isResultAnimating) {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Submit")) {
                 OnClickedConfirmBtn();
             }
@@ -264,7 +265,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
 
         _isPopupViewShowed = m_terminalView?.MainGameObject.activeInHierarchy == true;
         
-        m_startTimerBtn.gameObject.SetActive(m_isWaitTimer);
+        m_startTimerBtn.gameObject.SetActive(m_isWaitTimer && !_isResultShowing);
     }
 
     void OnClickedHistoryButton() {
@@ -313,7 +314,10 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         AudioManager.Instance.UnPauseBgm();
     }
 
-    void OnClickedConfirmBtn() {
+    void OnClickedConfirmBtn()
+    {
+        _isResultShowing = false;
+        
         if (m_isGameFinished) {
             return;
         }
@@ -428,6 +432,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
 
     void ShowResult() {
         _isResultShowing = true;
+        _isResultAnimating = true;
         
         HideTimer();
         ShowResultButtons();
@@ -495,7 +500,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
                 });
             }
             
-            _isResultShowing = false;
+            _isResultAnimating = false;
         });
         
         Sequence sequence = DOTween.Sequence();
