@@ -14,6 +14,9 @@ namespace R
         public static Asset<AudioClip> タンホイザーとアイーダメドレー => new("Assets/Games/Common/Commend/Audios/タンホイザーとアイーダメドレー.mp3");
         public static Asset<AudioClip> ハレルヤ => new("Assets/Games/Common/Commend/Audios/ハレルヤ.mp3");
         public static Asset<AudioClip> 威風堂々 => new("Assets/Games/Common/Commend/Audios/威風堂々.mp3");
+        public static Asset<AudioClip> 拍手 => new("Assets/Games/Common/Commend/Audios/拍手.mp3");
+        public static Asset<AudioClip> 指笛 => new("Assets/Games/Common/Commend/Audios/指笛.mp3");
+        public static Asset<AudioClip> 歓声 => new("Assets/Games/Common/Commend/Audios/歓声.mp3");
         public static Asset<AudioClip> 見よ勇者は帰る => new("Assets/Games/Common/Commend/Audios/見よ、勇者は帰る.mp3");
         public static Asset<AudioClip> BgmRouletteLoop => new("Assets/Games/Roulette/Audios/bgm_roulette_loop.mp3");
         public static Asset<AudioClip> SfxRouletteBack => new("Assets/Games/Roulette/Audios/sfx_roulette_back.mp3");

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using SQLite;
 using UnityEngine;
 using Usen;
+using Random = System.Random;
 
 namespace USEN.Games.Roulette
 {
@@ -21,6 +22,8 @@ namespace USEN.Games.Roulette
         public readonly SQLiteConnection db;
 
         private int _version = 1;
+        
+        private List<int> _previousRandomIndexes = new();
         
         private RouletteManager(string databaseName = null)
         {
@@ -130,19 +133,29 @@ namespace USEN.Games.Roulette
             };
         }
 
-        public RouletteData GetRandomRoulette()
+        public RouletteData GetRandomRoulette(int notRepeatCount = 10, string fromCategory = "バツゲーム")
         {
             var data = db.Table<RouletteData>().ToList();
-            
             if (data.Count == 0) return null;
 
             var result =
                 from roulette in data
-                where roulette.Category == "バツゲーム"
+                where roulette.Category == fromCategory
                 select roulette;
             var batuGames = result.ToList();
             
-            return batuGames[UnityEngine.Random.Range(0, batuGames.Count - 1)];
+            int nextIndex;
+            Random random = new();
+            do {
+                nextIndex = random.Next(batuGames.Count);
+                Debug.Log($"[RouletteManager] Random index: {nextIndex}");
+            } while (_previousRandomIndexes.Contains(nextIndex));
+            
+            _previousRandomIndexes.Add(nextIndex);
+            if (_previousRandomIndexes.Count >= Mathf.Min(notRepeatCount, batuGames.Count))
+                _previousRandomIndexes.RemoveAt(0);
+            
+            return batuGames[nextIndex];
         }
         
         public async Task AddRoulette(RouletteData roulette)

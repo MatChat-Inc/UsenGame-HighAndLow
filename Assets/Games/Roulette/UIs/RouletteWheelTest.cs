@@ -12,14 +12,13 @@ namespace USEN.Games.Roulette
     public class RouletteWheelTest : MonoBehaviour
     {
         public RouletteWheel rouletteWheel;
-        public RouletteData rouletteData;
         public TextMeshProUGUI resultText;
         
         private List<RouletteSector> sectors;
 
         private void Start()
         {
-            sectors = new List<RouletteSector>(rouletteData.sectors);
+            rouletteWheel.RouletteData = GetRouletteData();
             rouletteWheel.OnSpinEnd += result =>
             {
                 resultText.text = result;
@@ -82,6 +81,29 @@ namespace USEN.Games.Roulette
                 Debug.Log("Green key pressed");
             }
         }
-
+    
+        private RouletteData GetRouletteData()
+        {
+            var roulette = new RouletteData();
+            roulette.Title = "新規ルーレット";
+            roulette.sectors = new List<RouletteSector>();
+            for (int i = 0; i < 8; i++)
+            {
+                roulette.sectors.Add(new RouletteSector()
+                {
+                    content = $"",
+                    weight = 1,
+                });
+            }
+            
+            for (int i = 0; i < roulette.sectors.Count; i++)
+            {
+                var sector = roulette.sectors[i];
+                sector.id = i;
+                sector.color = RouletteData.GetSectorColor(i, roulette.sectors.Count);
+            }
+            
+            return roulette;
+        }
     }
 }

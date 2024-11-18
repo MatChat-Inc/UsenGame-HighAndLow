@@ -1,7 +1,7 @@
 // Created by LunarEclipse on 2024-7-6 21:58.
 
 using System;
-using Luna.UI;
+using Luna;
 using Luna.UI.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,7 @@ namespace USEN.Games.Common
         public Button yellowButton;
         
         public bool clickExitToPop = false;
+        public bool playSound = true;
         
         public event Action onExitButtonClicked;
         public event Action onSelectButtonClicked;
@@ -93,6 +94,7 @@ namespace USEN.Games.Common
             
             if (!exitButton.isActiveAndEnabled) return;
             onExitButtonClicked?.Invoke();
+            // SFXManager.Play(R.Audios.ルーレット操作音戻る);
         }
 
         private void OnSelectButtonClicked()
@@ -105,30 +107,44 @@ namespace USEN.Games.Common
         {
             if (!confirmButton.isActiveAndEnabled) return;
             onConfirmButtonClicked?.Invoke();
+            
+            if (playSound)
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
 
         private void OnRedButtonClicked()
         {
             if (!redButton.isActiveAndEnabled) return;
             onRedButtonClicked?.Invoke();
+            
+            if (playSound)
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
 
         private void OnBlueButtonClicked()
         {
             if (!blueButton.isActiveAndEnabled) return;
             onBlueButtonClicked?.Invoke();
+            if (playSound)
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
 
         private void OnGreenButtonClicked()
         {
             if (!greenButton.isActiveAndEnabled) return;
             onGreenButtonClicked?.Invoke();
+            
+            if (playSound)
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
 
         private void OnYellowButtonClicked()
         {
             if (!yellowButton.isActiveAndEnabled) return;
             onYellowButtonClicked?.Invoke();
+            
+            if (playSound)
+                SFXManager.Play(R.Audios.SfxRouletteConfirm);
         }
     }
 }

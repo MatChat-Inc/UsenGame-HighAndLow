@@ -1,5 +1,6 @@
 // Created by LunarEclipse on 2024-6-30 18:50.
 
+using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -16,6 +17,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using USEN.Games.Common;
+using Random = UnityEngine.Random;
 
 namespace USEN.Games.Roulette
 {
@@ -30,6 +32,8 @@ namespace USEN.Games.Roulette
         private AsyncOperationHandle<AudioClip>? _audioClipHandle;
         
         private bool _isStopping = false;
+        private Vector3 _originalPosition;
+        private Vector3 _originalScale;
 
         public RouletteData RouletteData
         {
@@ -135,12 +139,19 @@ namespace USEN.Games.Roulette
 
         private async void OnBlueButtonClicked()
         {
-            Navigator.Pop();
-            
-            if (Navigator.Instance.TopWidget is RouletteCategoryView categoryView)
+            switch (RoulettePreferences.DisplayMode)
             {
-                await UniTask.NextFrame();
-                categoryView.GotoRandomCategory();
+                case RouletteDisplayMode.Normal:
+                    Navigator.Pop();
+                    break;
+                case RouletteDisplayMode.Random:
+                    ResetRoulette();
+                    RouletteData roulette;
+                    do { 
+                        roulette = RouletteManager.Instance.GetRandomRoulette();
+                    } while (roulette == RouletteData);
+                    RouletteData = roulette;
+                    break;
             }
         }
 
@@ -204,6 +215,9 @@ namespace USEN.Games.Roulette
             
             if (_isStopping) return;
             _isStopping = true;
+            
+            _originalPosition = rouletteWheel.transform.parent.localPosition;
+            _originalScale = rouletteWheel.transform.parent.localScale;
 
             // Stop the wheel
             rouletteWheel.StopSpin();
@@ -227,6 +241,12 @@ namespace USEN.Games.Roulette
                     popup.onOption2 = () => Navigator.PopToRoot(); //Navigator.PopUntil<RouletteStartView>();
                     popup.onOption3 = () => SceneManager.LoadScene("GameEntries");
                 });
+        }
+        
+        private void ResetRoulette()
+        {
+            rouletteWheel.transform.parent.localPosition = _originalPosition;
+            rouletteWheel.transform.parent.localScale = _originalScale;
         }
     }
 }

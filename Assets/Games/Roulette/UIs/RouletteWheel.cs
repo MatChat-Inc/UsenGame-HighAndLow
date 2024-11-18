@@ -34,6 +34,8 @@ namespace USEN.Games.Roulette
         public float angleOffset = 180f;
         
         public bool clockwise = true;
+
+        public Material material;
         
         [Header("Text Settings")]
         public TMP_FontAsset font;
@@ -294,7 +296,8 @@ namespace USEN.Games.Roulette
             mesh.colors = colors.ToArray();
 
             // Use a material that supports vertex colors
-            Material material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
+            if (material == null) 
+                material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
             meshRenderer.material = material;
 
             // Add text

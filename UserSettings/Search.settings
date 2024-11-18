@@ -1,6 +1,4 @@
 trackSelection = true
-refreshSearchWindowsInPlayMode = false
-pickerAdvancedUI = false
 fetchPreview = true
 defaultFlags = 0
 keepOpen = false
@@ -9,6 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"last_search.8C24D059" = "p: dir=\"CC0 Sounds\" "
+	"OpenInspectorPreview.8C24D059" = "0"
+	"currentGroup.8C24D059" = "asset"
 }
 providers = {
 	asset = {
@@ -61,6 +62,16 @@ providers = {
 		priority = 210
 		defaultAction = null
 	}
+	at = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	st = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
 }
 objectSelectors = {
 }
@@ -70,12 +81,9 @@ searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
-hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = true
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
-minIndexVariations = 2
-findProviderIndexHelper = true

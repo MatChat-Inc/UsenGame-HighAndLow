@@ -2,12 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using Luna;
 using Luna.UI;
 using Luna.UI.Navigation;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Video;
+using USEN.Games.Roulette;
 
 namespace USEN.Games.Common
 {
@@ -15,6 +17,7 @@ namespace USEN.Games.Common
     {
         public VideoPlayer videoPlayer;
         public AudioSource audioSource;
+        public BottomPanel bottomPanel;
         
         public List<VideoClip> videoClips;
         public List<AssetReferenceT<AudioClip>> audioClips;
@@ -24,7 +27,7 @@ namespace USEN.Games.Common
         private void Start()
         {
             // Play video
-            var index = AppConfig.Instance.CommendationVideoOption;
+            var index = RoulettePreferences.CommendationVideoOption;
              
             videoPlayer.targetCamera = Camera.main;
             
@@ -47,7 +50,21 @@ namespace USEN.Games.Common
                 };
             }
         }
-        
+
+        private void OnEnable()
+        {
+            bottomPanel.onRedButtonClicked += OnRedButtonClicked;
+            bottomPanel.onBlueButtonClicked += OnBlueButtonClicked;
+            bottomPanel.onGreenButtonClicked += OnGreenButtonClicked;
+        }
+
+        private void OnDisable()
+        {
+            bottomPanel.onRedButtonClicked -= OnRedButtonClicked;
+            bottomPanel.onBlueButtonClicked -= OnBlueButtonClicked;
+            bottomPanel.onGreenButtonClicked -= OnGreenButtonClicked;
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) ||
@@ -73,9 +90,24 @@ namespace USEN.Games.Common
             // Navigator.Pop();
         }
         
+        private void OnRedButtonClicked()
+        {
+            SFXManager.Play(R.Audios.指笛);
+        }
+
+        private void OnBlueButtonClicked()
+        {
+            SFXManager.Play(R.Audios.拍手);
+        }
+
+        private void OnGreenButtonClicked()
+        {
+            SFXManager.Play(R.Audios.歓声);
+        }
+        
         public AsyncOperationHandle<AudioClip>? PreloadAudio()
         {
-            var index = AppConfig.Instance.CommendationVideoOption;
+            var index = RoulettePreferences.CommendationVideoOption;
             if (index < audioClips.Count)
                 return Addressables.LoadAssetAsync<AudioClip>(audioClips[index]);
             return null;

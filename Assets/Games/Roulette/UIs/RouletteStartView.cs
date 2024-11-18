@@ -110,7 +110,8 @@ namespace USEN.Games.Roulette
         
         public void OnExitButtonClicked()
         {
-            Application.Quit();
+            // Application.Quit();
+            Android.Back();
         }
     }
 }
