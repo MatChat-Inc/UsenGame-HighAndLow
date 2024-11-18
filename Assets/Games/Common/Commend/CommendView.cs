@@ -102,7 +102,7 @@ namespace USEN.Games.Common
 
         private void OnGreenButtonClicked()
         {
-            SFXManager.Play(R.Audios.歓声);
+            SFXManager.Play(R.Audios.歓声, 1.5f);
         }
         
         public AsyncOperationHandle<AudioClip>? PreloadAudio()
