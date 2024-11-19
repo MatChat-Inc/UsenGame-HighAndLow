@@ -137,6 +137,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+  - m_GUID: 551ba48dc0b26a54b86d68f7ffb672d1
+    m_Address: "Assets/Games/Common/Commend/Audios/\u62CD\u624B.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: e3b8b8d17a937664d993f6184128a07f
+    m_Address: "Assets/Games/Common/Commend/Audios/\u6307\u7B1B.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 134dd70190bf6864ea1e225b25d15347
+    m_Address: "Assets/Games/Common/Commend/Audios/\u6B53\u58F0.mp3"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5fb9abfb9f8a51d45b29881337ae0163, type: 2}
   m_SchemaSet:

@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "309af56c",
         "name": "com.usen.uhighandlow",
-        "processId": 1527,
+        "processId": 18460,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,31 +11,37 @@
         {
             "deviceId": "309af56c",
             "name": "com.usen.uhighandlow",
-            "processId": 22111,
-            "exited": false
-        },
-        {
-            "deviceId": "309af56c",
-            "name": "com.usen.uhighandlow",
             "processId": 31390,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "309af56c",
             "name": "com.usen.uhighandlow",
             "processId": 31986,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "309af56c",
             "name": "com.usen.uhighandlow",
             "processId": 302,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "309af56c",
             "name": "com.usen.uhighandlow",
             "processId": 1527,
+            "exited": true
+        },
+        {
+            "deviceId": "309af56c",
+            "name": "com.miui.home",
+            "processId": 4764,
+            "exited": false
+        },
+        {
+            "deviceId": "309af56c",
+            "name": "com.usen.uhighandlow",
+            "processId": 18460,
             "exited": false
         }
     ],

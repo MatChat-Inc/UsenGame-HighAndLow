@@ -234,7 +234,7 @@ namespace USEN.Games.Roulette
 
         private void PopupConfirmView()
         {
-            Navigator.ShowModal<PopupOptionsView>(
+            Navigator.ShowModal<HLPopupOptionsView>(
                 builder: (popup) =>
                 {
                     popup.onOption1 = () => Navigator.Pop();
