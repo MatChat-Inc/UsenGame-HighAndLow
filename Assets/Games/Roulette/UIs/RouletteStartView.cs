@@ -111,7 +111,9 @@ namespace USEN.Games.Roulette
         public void OnExitButtonClicked()
         {
             // Application.Quit();
+#if UNITY_ANDROID
             Android.Back();
+#endif
         }
     }
 }

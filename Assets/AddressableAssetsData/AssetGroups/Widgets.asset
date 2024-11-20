@@ -41,12 +41,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     - USEN.Games.Common
-  - m_GUID: 600c78dba20a79c4d8476f538e27d9f7
-    m_Address: USEN.Games.HighLow.HighLowSettingsView
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - UI
-    - USEN.Games.HighLow
   - m_GUID: aabacd6beb79a644786614295621789a
     m_Address: global.StatefulWidgetChild
     m_ReadOnly: 0
