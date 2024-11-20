@@ -75,6 +75,9 @@ namespace USEN.Games.Roulette
 
         private void Start()
         {
+            _originalPosition = rouletteWheel.transform.parent.localPosition;
+            _originalScale = rouletteWheel.transform.parent.localScale;
+            
             AssetUtils.LoadAsync<CommendView>().ContinueWith(task =>
             {
                 var go = task.Result;
@@ -215,9 +218,6 @@ namespace USEN.Games.Roulette
             
             if (_isStopping) return;
             _isStopping = true;
-            
-            _originalPosition = rouletteWheel.transform.parent.localPosition;
-            _originalScale = rouletteWheel.transform.parent.localScale;
 
             // Stop the wheel
             rouletteWheel.StopSpin();
