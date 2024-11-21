@@ -47,12 +47,12 @@ namespace USEN.Games.HighLow
             commendationVideoSettingsToggles.Bind(commendationVideoSettingsSlider);
             
             // Audio volume
-            bgmVolumeText.text = $"{RoulettePreferences.BgmVolume * 100:0}";
-            bgmVolumeSlider.value = BgmManager.Volume * 10;
+            bgmVolumeText.text = $"{AppConfig.Instance.BGMVolume * 10:0}";
+            bgmVolumeSlider.value = AppConfig.Instance.BGMVolume;
             bgmVolumeSlider.onValueChanged.AddListener(OnBgmVolumeChanged);
             
-            sfxVolumeText.text = $"{RoulettePreferences.SfxVolume * 100:0}";
-            sfxVolumeSlider.value = SFXManager.Volume * 10;
+            sfxVolumeText.text = $"{AppConfig.Instance.EffectVolume * 10:0}";
+            sfxVolumeSlider.value = AppConfig.Instance.EffectVolume;
             sfxVolumeSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
             
             highLowTimeCountText.text = AppConfig.Instance.CurrentHighAndLowTimer.ToString();

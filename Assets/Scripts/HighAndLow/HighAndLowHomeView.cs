@@ -44,6 +44,9 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
         _exitButton.onClick.AddListener(() => {
             USENSceneManager.Instance.LoadScene("GameEntries");
         });
+        
+        AudioManager.Instance.SetBgmVolume(AppConfig.Instance.BGMVolume);
+        AudioManager.Instance.SetEffectVolume(AppConfig.Instance.EffectVolume);
     }
 
     public void Hide()
