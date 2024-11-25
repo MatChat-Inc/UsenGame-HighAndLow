@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Usen
+namespace USEN
 {
     public class Response
     {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Usen.Models
+namespace USEN.Roulette
 {
     public class AddRouletteResponse: Response
     {

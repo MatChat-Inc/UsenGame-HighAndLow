@@ -55,10 +55,7 @@ namespace USEN.Games.Roulette
             
             // Bottom panel
             bottomPanel.exitButton.onClick.AddListener(() => Navigator.Pop());
-        }
-
-        private void OnEnable()
-        {
+            
             EventSystem.current.SetSelectedGameObject(basicDisplayShowSettingsSlider.gameObject);
         }
         
@@ -74,6 +71,7 @@ namespace USEN.Games.Roulette
             var index = Convert.ToInt32(arg0);
             // basicDisplaySettingsToggles.ToggleOn(Convert.ToInt32(index));
             RoulettePreferences.DisplayMode = (RouletteDisplayMode) index;
+            API.UpdateRandomSetting(RoulettePreferences.DisplayMode == RouletteDisplayMode.Random);
         }
         
         private void OnCommendationVideoSettingsSliderValueChanged(float arg0)

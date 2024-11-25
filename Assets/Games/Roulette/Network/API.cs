@@ -3,9 +3,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using USEN.Games.Roulette;
-using Usen.Models;
+using USEN.Roulette;
 
-namespace Usen
+namespace USEN
 {
     public partial class API
     {
@@ -32,6 +32,16 @@ namespace Usen
         public static Task<Response> DeleteRoulette(string id)
         {
             return Request.Delete($"/roulette/roulettes/{id}");
+        }
+        
+        public static Task<RandomSettingResponse> GetRandomSetting()
+        {
+            return Request.Get<RandomSettingResponse>("/setting/random");
+        }
+        
+        public static Task<Response> UpdateRandomSetting(bool isRandom)
+        {
+            return Request.Post("/setting/random", new { random = isRandom ? 1 : 0 });
         }
     }
 }

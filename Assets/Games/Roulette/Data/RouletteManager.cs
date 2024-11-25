@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SQLite;
 using UnityEngine;
-using Usen;
+using USEN;
 using Random = System.Random;
 
 namespace USEN.Games.Roulette
@@ -62,7 +62,7 @@ namespace USEN.Games.Roulette
         
         public Task<RouletteCategories> Sync()
         {
-            return Usen.API.GetRouletteCategories().ContinueWith(task =>
+            return USEN.API.GetRouletteCategories().ContinueWith(task =>
             {
                 if (task.IsFaulted)
                 {

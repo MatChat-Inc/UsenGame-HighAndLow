@@ -65,17 +65,7 @@ namespace USEN.Games.HighLow
             
             EventSystem.current.SetSelectedGameObject(basicDisplayShowSettingsSlider.gameObject);
         }
-
-        private void OnEnable()
-        {
-            // EventSystem.current.SetSelectedGameObject(basicDisplayShowSettingsSlider.gameObject);
-        }
-
-        private void OnDisable()
-        {
-            // EventSystem.current.SetSelectedGameObject(null);
-        }
-
+        
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) ||
@@ -108,6 +98,7 @@ namespace USEN.Games.HighLow
             var index = Convert.ToInt32(arg0);
             // basicDisplaySettingsToggles.ToggleOn(Convert.ToInt32(index));
             RoulettePreferences.DisplayMode = (RouletteDisplayMode) index;
+            API.UpdateRandomSetting(RoulettePreferences.DisplayMode == RouletteDisplayMode.Random);
         }
         
         private void OnCommendationVideoSettingsSliderValueChanged(float arg0)

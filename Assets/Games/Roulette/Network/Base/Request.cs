@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using USEN.Games.Roulette;
 
-namespace Usen
+namespace USEN
 {
     public class Request
     {
