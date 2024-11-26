@@ -160,6 +160,8 @@ namespace USEN.Games.Roulette
 
         private void OnRedButtonClicked()
         {
+            SFXManager.Stop(R.Audios.SfxRouletteConfirm);
+            SFXManager.Stop(R.Audios.SfxRouletteGameRotating);
             Navigator.PopUntil<RouletteCategoryView>();
         }
 
@@ -174,16 +176,18 @@ namespace USEN.Games.Roulette
         {
             confirmText.text = "停止";
             
-            // Hide yellow button
+            // Hide bottom buttons
             bottomPanel.yellowButton.gameObject.SetActive(false);
+            bottomPanel.blueButton.gameObject.SetActive(false);
         }
         
         private void OnSpinEnd(string obj)
         {
             confirmText.text = "もう一度ルーレットを回す";
             
-            // Show yellow button
+            // Show bottom buttons
             bottomPanel.yellowButton.gameObject.SetActive(true);
+            bottomPanel.blueButton.gameObject.SetActive(true);
             
             _isStopping = false;
         }
