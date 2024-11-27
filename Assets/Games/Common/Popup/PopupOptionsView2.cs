@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace USEN.Games.Common
 {
-    public class HLPopupOptionsView : Widget
+    public class PopupOptionsView2 : Widget
     {
         public delegate void OnOptionClicked();
         

@@ -1879,7 +1879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
-  slider: {fileID: 3901809376489070564}
 --- !u!114 &97504962427046157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6007,7 +6006,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
-  slider: {fileID: 0}
 --- !u!114 &3810565851468374537
 MonoBehaviour:
   m_ObjectHideFlags: 0

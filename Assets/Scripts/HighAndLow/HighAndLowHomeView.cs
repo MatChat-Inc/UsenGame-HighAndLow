@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using Luna;
 using Luna.UI.Navigation;
 using USEN.Games.HighLow;
 
@@ -74,8 +75,12 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
     {
         if (Input.GetButtonDown("Cancel")) 
         {
+            // if (m_mainViewGameObject.activeInHierarchy)
+            //     USENSceneManager.Instance.LoadScene("GameEntries");
+#if UNITY_ANDROID
             if (m_mainViewGameObject.activeInHierarchy)
-                USENSceneManager.Instance.LoadScene("GameEntries");
+                Android.Back();
+#endif
         }
     }
 

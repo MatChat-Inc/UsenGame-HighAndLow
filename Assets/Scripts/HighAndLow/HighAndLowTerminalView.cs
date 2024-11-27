@@ -1,3 +1,4 @@
+using Luna;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -65,6 +66,8 @@ public class HighAndLowTerminalView : AbstractView
 
     void OnTerminalButtonClicked() {
         Hide();
-        USENSceneManager.Instance.LoadScene("GameEntries");
+#if UNITY_ANDROID
+        Android.Back();
+#endif
     }
 }
