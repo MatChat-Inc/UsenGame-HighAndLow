@@ -179,6 +179,7 @@ namespace USEN.Games.Roulette
             // Hide bottom buttons
             bottomPanel.yellowButton.gameObject.SetActive(false);
             bottomPanel.blueButton.gameObject.SetActive(false);
+            bottomPanel.redButton.gameObject.SetActive(false);
         }
         
         private void OnSpinEnd(string obj)
@@ -188,6 +189,7 @@ namespace USEN.Games.Roulette
             // Show bottom buttons
             bottomPanel.yellowButton.gameObject.SetActive(true);
             bottomPanel.blueButton.gameObject.SetActive(true);
+            bottomPanel.redButton.gameObject.SetActive(true);
             
             _isStopping = false;
         }
