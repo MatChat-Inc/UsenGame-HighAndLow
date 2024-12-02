@@ -290,17 +290,17 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     async void OnClickedRouletteBtn() {
         AudioManager.Instance.PlayKeyBackEffect();
         
-        Navigator.Push<RouletteCategoryView>((view) => {
+        await Navigator.Push<RouletteCategoryView>((view) => {
             _isRouletteShowing = true;
+            
+            if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
+            { 
+                Navigator.Push<USEN.Games.Roulette.RouletteGameView>(async (view) => {
+                    view.RouletteData = RouletteManager.Instance.GetRandomRoulette();
+                    _isRouletteShowing = true;
+                });
+            }
         });
-        
-        if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
-        {
-            await Navigator.Push<USEN.Games.Roulette.RouletteGameView>(async (view) => {
-                view.RouletteData = RouletteManager.Instance.GetRandomRoulette();
-                _isRouletteShowing = true;
-            });
-        }
         
         await UniTask.NextFrame();
         _isRouletteShowing = false;
