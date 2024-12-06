@@ -8,6 +8,8 @@ namespace USEN.Games.HighLow
     {
         private void OnEnable()
         {
+            RouletteManager.Instance.Sync();
+            
             API.GetRandomSetting().ContinueWith(task => {
                 RoulettePreferences.DisplayMode = (RouletteDisplayMode) task.Result.random;
             }, TaskScheduler.FromCurrentSynchronizationContext());

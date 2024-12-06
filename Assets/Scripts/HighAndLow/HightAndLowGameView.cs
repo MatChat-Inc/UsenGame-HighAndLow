@@ -290,7 +290,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     async void OnClickedRouletteBtn() {
         AudioManager.Instance.PlayKeyBackEffect();
         
-        await Navigator.Push<RouletteCategoryView>((view) => {
+        await Navigator.Push<RouletteGameSelectionView>((view) => {
+            view.Category = RouletteManager.Instance.GetCategory("バツゲーム");
             _isRouletteShowing = true;
             
             if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
