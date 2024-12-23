@@ -153,6 +153,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             if (commendView != null) 
                 _audioClipHandle = commendView.PreloadAudio();
         }, TaskScheduler.FromCurrentSynchronizationContext());
+
+        AudioManager.Instance.keydownAudioSource.mute = true;
     }
 
     public override void OnDestroy() {
@@ -172,6 +174,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     public void Hide()
     {
         m_mainViewGameObject.SetActive(false);
+        AudioManager.Instance.keydownAudioSource.mute = false;
     }
 
     public void OnAndroidKeyDown(string keyName)
@@ -304,6 +307,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         });
         
         await UniTask.NextFrame();
+        AudioManager.Instance.SetKeyStartEffect();
         _isRouletteShowing = false;
     }
 

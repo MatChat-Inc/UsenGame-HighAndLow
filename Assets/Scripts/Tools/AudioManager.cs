@@ -248,4 +248,9 @@ public class AudioManager : MonoBehaviourSingletonTemplate<AudioManager>
         numberRotateAudioSource.loop = false;
         numberRotateAudioSource.Play();
     }
+    
+    public async void SetKeyStartEffect() {
+        keydownAudioSource.clip = await AudioResManager.Instance.GetKeyStartAudioPath();
+        keydownAudioSource.loop = false;
+    }
 }

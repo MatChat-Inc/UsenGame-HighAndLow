@@ -177,6 +177,7 @@ namespace USEN.Games.Roulette
             confirmText.text = "停止";
             
             // Hide bottom buttons
+            bottomPanel.confirmButton.gameObject.SetActive(false);
             bottomPanel.yellowButton.gameObject.SetActive(false);
             bottomPanel.blueButton.gameObject.SetActive(false);
             bottomPanel.redButton.gameObject.SetActive(false);
@@ -187,6 +188,7 @@ namespace USEN.Games.Roulette
             confirmText.text = "もう一度ルーレットを回す";
             
             // Show bottom buttons
+            bottomPanel.confirmButton.gameObject.SetActive(true);
             bottomPanel.yellowButton.gameObject.SetActive(true);
             bottomPanel.blueButton.gameObject.SetActive(true);
             bottomPanel.redButton.gameObject.SetActive(true);
@@ -244,7 +246,12 @@ namespace USEN.Games.Roulette
                 builder: (popup) =>
                 {
                     popup.onOption1 = () => Navigator.Pop();
-                    popup.onOption2 = () => Navigator.PopToRoot(); //Navigator.PopUntil<RouletteStartView>();
+                    popup.onOption2 = () =>
+                    {
+                        SFXManager.StopAll();
+                        Navigator.PopToRoot();
+                        //Navigator.PopUntil<RouletteStartView>();
+                    }; 
                     popup.onOption3 = () => SceneManager.LoadScene("GameEntries");
                 });
         }
