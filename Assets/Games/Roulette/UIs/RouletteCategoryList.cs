@@ -12,7 +12,7 @@ namespace USEN.Games.Roulette
     {
         protected override void OnCellClicked(int index, RouletteCategoryListCell listViewCell)
         {
-            SFXManager.Play(R.Audios.SfxRouletteConfirm);
+            SFXManager.Play(R.Audios.SfxConfirm);
             
             switch (RoulettePreferences.DisplayMode)
             {
@@ -54,7 +54,7 @@ namespace USEN.Games.Roulette
             listViewCell.text.color = Color.black;
             
             if (Initialized)
-                SFXManager.Play(R.Audios.SfxRouletteSelect);
+                SFXManager.Play(R.Audios.SfxSelect);
         }
     }
 

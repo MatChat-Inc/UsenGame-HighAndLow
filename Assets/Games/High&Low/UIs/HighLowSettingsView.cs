@@ -122,7 +122,7 @@ namespace USEN.Games.HighLow
             AppConfig.Instance.EffectVolume = Convert.ToInt32(value);
             AudioManager.Instance.SetEffectVolume((int)value);
             sfxVolumeText.text = $"{value * 10:0}";
-            // SFXManager.Play(R.Audios.SfxRouletteBack);
+            SFXManager.Play(R.Audios.SfxBack);
         }
         
         void OnClickAppInfoButton() 

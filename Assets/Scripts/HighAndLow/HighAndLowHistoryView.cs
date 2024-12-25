@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using Luna;
 
 public class HighAndLowHistoryView : AbstractView, IViewOperater
 {
@@ -61,6 +62,7 @@ public class HighAndLowHistoryView : AbstractView, IViewOperater
     void OnClickedBackButton() {
         if (m_gameView == null)
             m_gameView = new HighAndLowGameView();
+        SFXManager.Play(R.Audios.SfxBack);
         ViewManager.Instance.Push(m_gameView);
     }
 }

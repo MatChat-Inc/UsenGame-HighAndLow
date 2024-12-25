@@ -109,7 +109,7 @@ namespace USEN.Games.Common
             onConfirmButtonClicked?.Invoke();
             
             if (playSound)
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
         }
 
         private void OnRedButtonClicked()
@@ -118,7 +118,7 @@ namespace USEN.Games.Common
             onRedButtonClicked?.Invoke();
             
             if (playSound)
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
         }
 
         private void OnBlueButtonClicked()
@@ -126,7 +126,7 @@ namespace USEN.Games.Common
             if (!blueButton.isActiveAndEnabled) return;
             onBlueButtonClicked?.Invoke();
             if (playSound)
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
         }
 
         private void OnGreenButtonClicked()
@@ -135,7 +135,7 @@ namespace USEN.Games.Common
             onGreenButtonClicked?.Invoke();
             
             if (playSound)
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
         }
 
         private void OnYellowButtonClicked()
@@ -144,7 +144,7 @@ namespace USEN.Games.Common
             onYellowButtonClicked?.Invoke();
             
             if (playSound)
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
         }
     }
 }

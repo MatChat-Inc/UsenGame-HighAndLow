@@ -91,7 +91,7 @@ namespace USEN.Games.Roulette
             SFXManager.SetVolume(value * 0.1f);
             RoulettePreferences.SfxVolume = value * 0.1f;
             sfxVolumeText.text = $"{value * 10:0}";
-            SFXManager.Play(R.Audios.SfxRouletteBack);
+            SFXManager.Play(R.Audios.SfxBack);
         }
         
         private void OnClickAppInfoButton() 

@@ -597,6 +597,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 1
   outerGlow: {fileID: 8219426307102502888}
   outglowDuration: 0.2
   outglowOnNormal: 0
@@ -905,6 +911,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 0
   outerGlow: {fileID: 5525447097517141449}
   outglowDuration: 0.2
   outglowOnNormal: 0
@@ -1272,6 +1284,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 0
   outerGlow: {fileID: 9186416981932010695}
   outglowDuration: 0.2
   outglowOnNormal: 0

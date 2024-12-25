@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using DG.Tweening;
 using LeTai;
 using LeTai.TrueShadow;
+using Luna.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(TrueShadow))]
-public class OuterGlowButton : Button
+public class OuterGlowButton : AudioButton
 {
     public TrueShadow outerGlow;
     public float outglowDuration = 0.2f;

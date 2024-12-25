@@ -212,7 +212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307129163579525881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 90ebee7b0c404aa9b70afb8e52e8af5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -247,6 +247,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 0
 --- !u!114 &3057775281729004416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +493,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2009199931139217815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 90ebee7b0c404aa9b70afb8e52e8af5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -522,6 +528,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 0
 --- !u!114 &8739424004527415636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +698,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3567490174138933338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 90ebee7b0c404aa9b70afb8e52e8af5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -721,6 +733,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  clickAudio: {fileID: 0}
+  submitAudio: {fileID: 0}
+  hoverAudio: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 9e0e34526a56b2d46ac13eca59370680, type: 3}
+  mute: 0
+  focusOnEnable: 0
 --- !u!114 &2757618511369651015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,7 +922,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 823
+    m_Bits: 55
 --- !u!1 &6466376137559256239
 GameObject:
   m_ObjectHideFlags: 0

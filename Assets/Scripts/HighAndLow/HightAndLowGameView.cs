@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Luna;
 using Luna.UI.Navigation;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Playables;
@@ -273,7 +274,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     void OnClickedHistoryButton() {
-        AudioManager.Instance.PlayKeyBackEffect();
+        SFXManager.Play(R.Audios.SfxConfirm);
         if (m_historyView == null) {
             m_historyView = new HighAndLowHistoryView(m_checkedPokers);
         }
@@ -281,7 +282,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     void OnClickedTerminalBtn() {
-        AudioManager.Instance.PlayKeyBackEffect();
+        SFXManager.Play(R.Audios.SfxBack);
         if (m_terminalView == null) {
             m_terminalView = new HighAndLowTerminalView();
             m_terminalView.Build(m_mainViewGameObject.transform);
@@ -291,7 +292,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     async void OnClickedRouletteBtn() {
-        AudioManager.Instance.PlayKeyBackEffect();
+        SFXManager.Play(R.Audios.SfxConfirm);
         
         await Navigator.Push<RouletteGameSelectionView>((view) => {
             view.Category = RouletteManager.Instance.GetCategory("バツゲーム");
@@ -307,17 +308,16 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         });
         
         await UniTask.NextFrame();
-        AudioManager.Instance.SetKeyStartEffect();
         _isRouletteShowing = false;
     }
 
     async void OnClickedWinnerBtn() 
     {
         _isCommendationShowing = true;
-        AudioManager.Instance.PlayKeyStartEffect();
         AudioManager.Instance.PauseBgm();
         await Navigator.Push<CommendView>();
         AudioManager.Instance.UnPauseBgm();
+        SFXManager.Play(R.Audios.SfxBack);
         _isCommendationShowing = false;
     }
 

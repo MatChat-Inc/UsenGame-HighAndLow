@@ -160,7 +160,7 @@ namespace USEN.Games.Roulette
 
         private void OnRedButtonClicked()
         {
-            SFXManager.Stop(R.Audios.SfxRouletteConfirm);
+            SFXManager.Stop(R.Audios.SfxConfirm);
             SFXManager.Stop(R.Audios.SfxRouletteGameRotating);
             Navigator.PopUntil<RouletteCategoryView>();
         }
@@ -203,7 +203,7 @@ namespace USEN.Games.Roulette
             if (startButton.gameObject.activeSelf)
             {
                 startButton.gameObject.SetActive(false);
-                SFXManager.Play(R.Audios.SfxRouletteConfirm);
+                SFXManager.Play(R.Audios.SfxConfirm);
             }
 
             // Spin the wheel

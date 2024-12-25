@@ -37,7 +37,7 @@ namespace USEN.Games.Roulette
             SFXManager.Volume = RoulettePreferences.SfxVolume;
             
             Navigator.Instance.onPopped += (route) => {
-                SFXManager.Play(R.Audios.SfxRouletteBack);
+                SFXManager.Play(R.Audios.SfxBack);
             };
 
 #if UNITY_ANDROID

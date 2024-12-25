@@ -10,7 +10,7 @@ namespace USEN.Games.Roulette
     {
         protected override void OnCellSubmitted(int index, RouletteGameSelectionListCell listViewCell)
         {
-            SFXManager.Play(R.Audios.SfxRouletteConfirm);
+            SFXManager.Play(R.Audios.SfxConfirm);
         }
 
         protected override void OnCellDeselected(int index, RouletteGameSelectionListCell listViewCell)
@@ -23,7 +23,7 @@ namespace USEN.Games.Roulette
             listViewCell.text.color = Color.black;
             
             if (Initialized)
-                SFXManager.Play(R.Audios.SfxRouletteSelect);
+                SFXManager.Play(R.Audios.SfxSelect);
         }
     }
 

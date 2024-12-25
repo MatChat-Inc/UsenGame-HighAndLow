@@ -53,10 +53,12 @@ public class HighAndLowTerminalView : AbstractView
     }
 
     void OnBackGameButtonClicked() {
+        SFXManager.Play(R.Audios.SfxBack);
         Hide();
     }
 
     void OnPauseButtonClicked() {
+        SFXManager.Play(R.Audios.SfxBack);
         Hide();
         if (m_homeView == null) {
             m_homeView = new HighAndLowHomeView();
@@ -65,6 +67,7 @@ public class HighAndLowTerminalView : AbstractView
     }
 
     void OnTerminalButtonClicked() {
+        SFXManager.Play(R.Audios.SfxBack);
         Hide();
 #if UNITY_ANDROID
         Android.Back();

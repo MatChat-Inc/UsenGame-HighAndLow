@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Resources;
+using Luna;
 using USEN.Games.Common;
 
 public interface IViewOperater
@@ -73,7 +74,7 @@ public class ViewManager : MonoBehaviourSingletonTemplate<ViewManager>
     {
         // ThemeResManager.Instance.CheckAssetsLoaded();
         if (Input.anyKeyDown) {
-            AudioManager.Instance.PlayKeyDownEffect();
+            // AudioManager.Instance.PlayKeyDownEffect();
             if (Input.GetKeyDown(KeyCode.T))
             {
                 OnAndroidKeyDown("terminal");

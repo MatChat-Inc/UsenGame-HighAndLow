@@ -91,7 +91,6 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
             return;
         }
 
-        AudioManager.Instance.PlayKeyStartEffect();
         if (m_gameView == null) {
             m_gameView = new HighAndLowGameView();
         }
@@ -111,22 +110,21 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
 
     void HideResetAlertView() {
         m_resetPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(m_startBtn.gameObject);
+        // EventSystem.current.SetSelectedGameObject(m_startBtn.gameObject);
     }
 
     void OnClickResetButton() {
         HideResetAlertView();
         AppConfig.Instance.CheckedPokers = new List<int>() { };
         OnClickStartButton();
+        SFXManager.Play(R.Audios.SfxConfirm);
     }
 
     void OnClickCancelButton() {
         HideResetAlertView();
-        
-        AudioManager.Instance.PlayKeyStartEffect();
-        if (m_gameView == null) {
+        if (m_gameView == null) 
             m_gameView = new HighAndLowGameView();
-        }
         ViewManager.Instance.Push(m_gameView);
+        SFXManager.Play(R.Audios.SfxConfirm);
     }
 }
