@@ -26,8 +26,14 @@ namespace USEN
                 },
             };
             
+#if !DEBUG && UNITY_ANDROID
+                var tvIdentifier = USEN.AndroidPreferences.TVIdentifier ?? "N00000000000000065760";
+#else
+            var tvIdentifier = "N00000000000000065760";
+#endif
+            
             Client.DefaultRequestHeaders.Add("x-umid", "01HA1S5FCXKDB78KGBZ0QP3HYQ");
-            Client.DefaultRequestHeaders.Add("neosContractCd", "N00000000000000065760");
+            Client.DefaultRequestHeaders.Add("neosContractCd", tvIdentifier);
         }
         
         public static Task<T> Get<T>(string path) where T : class
