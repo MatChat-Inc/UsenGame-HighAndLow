@@ -42,11 +42,13 @@ namespace USEN.Games.Roulette
                 {
                     _editMode = EditMode.Editable;
                     bottomPanel.redButton.gameObject.SetActive(true);
+                    bottomPanel.blueButton.gameObject.SetActive(true);
                 }
                 else
                 {
                     _editMode = EditMode.Readonly;
                     bottomPanel.redButton.gameObject.SetActive(false);
+                    bottomPanel.blueButton.gameObject.SetActive(false);
                     bottomPanel.yellowButton.gameObject.SetActive(false);
                 }
 
