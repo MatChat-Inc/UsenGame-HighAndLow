@@ -297,6 +297,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         await Navigator.Push<RouletteGameSelectionView>((view) => {
             view.Category = RouletteManager.Instance.GetCategory("バツゲーム");
             _isRouletteShowing = true;
+            AudioManager.Instance.PauseBgm();
+            R.Audios.BgmRouletteLoop.PlayAsBgm();
             
             if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
             { 
@@ -306,6 +308,9 @@ public class HighAndLowGameView : AbstractView, IViewOperater
                 });
             }
         });
+        
+        BgmManager.Stop();
+        AudioManager.Instance.UnPauseBgm();
         
         await UniTask.NextFrame();
         _isRouletteShowing = false;
