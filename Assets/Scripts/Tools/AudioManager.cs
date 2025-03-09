@@ -162,11 +162,6 @@ public class AudioManager : MonoBehaviourSingletonTemplate<AudioManager>
         keydownAudioSource.Play();
     }
 
-    public async void PlayLowAndHighBGM() {
-        audioSource.clip = await AudioResManager.Instance.GetHighAndLowBGMAudioPath();
-        PlayBgm();
-    }
-
     public async void PlayKeyBackEffect() {
         keydownAudioSource.clip = await AudioResManager.Instance.GetKeyBackAudioPath();
         keydownAudioSource.loop = false;
@@ -179,50 +174,14 @@ public class AudioManager : MonoBehaviourSingletonTemplate<AudioManager>
         keydownAudioSource.Play();
     }
 
-    public async void PlayHighEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.GetHighAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
-    }
-
-    public async void PlayLowEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.GetLowAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
-    }
-
     public async void PlayHighAndLowTimerEffect() {
         effectAudioSource.clip = await AudioResManager.Instance.GetTimerAudioPath();
         effectAudioSource.loop = false;
         effectAudioSource.Play();
     }
 
-    public async void Play10SecondTimerEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.Get10SecondsAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
-    }
-
-    public async void Play20SecondTimerEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.Get20SecondsAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
-    }
-
-    public async void Play30SecondTimerEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.Get30SecondsAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
-    }
-
     public void StopEffectAudio() {
         effectAudioSource.Stop();
-    }
-
-    public async void PlaySendPokerEffect() {
-        effectAudioSource.clip = await AudioResManager.Instance.GetSendPokerAudioPath();
-        effectAudioSource.loop = false;
-        effectAudioSource.Play();
     }
 
     public async void PlayTimerStartEffect() {

@@ -28,7 +28,6 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
 
         m_startBtn = m_mainViewGameObject.transform.Find("StartBtn").GetComponent<Button>();
         m_startBtn.onClick.AddListener(OnClickStartButton);
-        AudioManager.Instance.PlayLowAndHighBGM();
 
         m_settingsBtn = m_mainViewGameObject.transform.Find("SettingsBtn").GetComponent<Button>();
         m_settingsBtn.onClick.AddListener(OnClickSettingsButton);

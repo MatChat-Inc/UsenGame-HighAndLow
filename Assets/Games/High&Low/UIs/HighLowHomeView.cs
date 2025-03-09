@@ -1,6 +1,9 @@
+using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Luna;
 using Luna.UI;
+using Luna.UI.Navigation;
 using USEN.Games.Roulette;
 
 namespace USEN.Games.HighLow
@@ -18,6 +21,20 @@ namespace USEN.Games.HighLow
             API.GetRandomSetting().ContinueWith(task => {
                 RoulettePreferences.DisplayMode = (RouletteDisplayMode) task.Result.random;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async void Start()
+        {
+            // Show loading indicator before necessary assets are loaded
+            await UniTask.Yield(PlayerLoopTiming.PreLateUpdate);
+            Navigator.ShowModal<RoundedCircularLoadingIndicator>();
+            
+            var bgm = await R.Audios.BgmHighLow.Load();
+            BgmManager.Play(bgm);
+            
+            await Assets.Load(GetType().Namespace, "Audio");
+            
+            Navigator.PopToRoot();
         }
     }
 }

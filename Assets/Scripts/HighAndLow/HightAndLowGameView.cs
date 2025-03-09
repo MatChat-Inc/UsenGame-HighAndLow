@@ -218,7 +218,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         }
         else if (m_isWaitContinue) {
             // 重连继续上一局
-            AudioManager.Instance.PlaySendPokerEffect();
+            R.Audios.SfxSendPoker.Play();
             var backFaceGO = CreatePoker(EPokers.BackFace);
             (backFaceGO.transform as RectTransform).rotation = Quaternion.Euler(0f, 180f, 60f);
             backFaceGO.transform.SetParent(m_pokerShowTransform2);
@@ -297,7 +297,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         await Navigator.Push<RouletteGameSelectionView>((view) => {
             view.Category = RouletteManager.Instance.GetCategory("バツゲーム");
             _isRouletteShowing = true;
-            AudioManager.Instance.PauseBgm();
+            // AudioManager.Instance.PauseBgm();
             R.Audios.BgmRouletteLoop.PlayAsBgm();
             
             if (RoulettePreferences.DisplayMode == RouletteDisplayMode.Random)
@@ -309,8 +309,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             }
         });
         
-        BgmManager.Stop();
-        AudioManager.Instance.UnPauseBgm();
+        BgmManager.Play(R.Audios.BgmHighLow);
+        // AudioManager.Instance.UnPauseBgm();
         
         await UniTask.NextFrame();
         _isRouletteShowing = false;
@@ -380,7 +380,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     void PlayLoop() {
-        AudioManager.Instance.PlaySendPokerEffect();
+        R.Audios.SfxSendPoker.Play();
         m_resultLow.SetActive(false);
         m_resultHigh.SetActive(false);
         var leftPokerGO = m_pokerShowTransform1.GetChild(0).gameObject;
@@ -419,13 +419,8 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         var timer = AppConfig.Instance.CurrentHighAndLowTimer + 1;
         // m_isShowTimer = true;
         
-        if (AppConfig.Instance.CurrentHighAndLowTimer == 10) {
-            AudioManager.Instance.Play10SecondTimerEffect();
-        }else if (AppConfig.Instance.CurrentHighAndLowTimer == 20) {
-            AudioManager.Instance.Play20SecondTimerEffect();
-        }else if (AppConfig.Instance.CurrentHighAndLowTimer == 30) {
-            AudioManager.Instance.Play30SecondTimerEffect();
-        }
+        R.Audios.Sfx10Sec.Play();
+        
         while (timer-- > 0) 
         {
             if (!m_isShowTimer) {
@@ -490,13 +485,13 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             // 判断输赢
             if (EPokersHelper.GetPokerValue((EPokers)leftPoker) < EPokersHelper.GetPokerValue(pokerType))
             {
-                AudioManager.Instance.PlayHighEffect();
+                R.Audios.SfxHigh.Play();
                 m_resultHigh.SetActive(true);
             }
 
             if (EPokersHelper.GetPokerValue((EPokers)leftPoker) > EPokersHelper.GetPokerValue(pokerType))
             {
-                AudioManager.Instance.PlayLowEffect();
+                R.Audios.SfxLow.Play();
                 m_resultLow.SetActive(true);
             }
             m_resultIsShowing = true;

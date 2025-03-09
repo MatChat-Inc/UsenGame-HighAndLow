@@ -53,10 +53,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Audio
   - m_GUID: c37d0f1c63b1649b1a0f344776bfccc9
-    m_Address: Assets/Resources/Audio/10sec.mp3
+    m_Address: Assets/Games/High&Low/Audios/sfx_10sec.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.HighLow
   - m_GUID: 54b1bbeb92acd424d80a8b0e5d052c9b
     m_Address: Assets/Resources/Audio/20sec.mp3
     m_ReadOnly: 0
@@ -68,20 +69,22 @@ MonoBehaviour:
     m_SerializedLabels:
     - Audio
   - m_GUID: 83be344fc082d4107969e4532eb5701a
-    m_Address: Assets/Resources/Audio/entry_bgm.mp3
+    m_Address: Assets/Games/High&Low/Audios/bgm_high&low.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.HighLow
   - m_GUID: 8155176a22cc94e6ba38928764c7ab21
     m_Address: Assets/Resources/Audio/entry_key_select.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
   - m_GUID: b64887ed5052644cf997231340b42d0e
-    m_Address: Assets/Resources/Audio/high.mp3
+    m_Address: Assets/Games/High&Low/Audios/sfx_high.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.HighLow
   - m_GUID: 1e2eb858f51cd476d879dd3888155a36
     m_Address: Assets/Resources/Audio/key_back.mp3
     m_ReadOnly: 0
@@ -103,15 +106,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - Audio
   - m_GUID: 36ada7173615e42e4873dec6564e073d
-    m_Address: Assets/Resources/Audio/low.mp3
+    m_Address: Assets/Games/High&Low/Audios/sfx_low.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.HighLow
   - m_GUID: bbb80af1f859b4dde88f6b6e29763f6b
-    m_Address: Assets/Resources/Audio/send_poker.mp3
+    m_Address: Assets/Games/High&Low/Audios/sfx_send_poker.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.HighLow
   - m_GUID: 48311c713f0f74c37b44148419951adb
     m_Address: Assets/Resources/Audio/timer_start.mp3
     m_ReadOnly: 0
