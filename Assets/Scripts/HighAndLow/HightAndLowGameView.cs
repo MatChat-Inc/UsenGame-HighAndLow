@@ -19,7 +19,6 @@ using Random = UnityEngine.Random;
 public class HighAndLowGameView : AbstractView, IViewOperater
 {
     string m_prefabPath = "HighAndLow/HighAndLowGamePanel";
-    HighAndLowHistoryView m_historyView;
     Transform m_pokerStartTransform;
     Transform m_pokerShowTransform1;
     Transform m_pokerShowTransform2;
@@ -156,6 +155,12 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         }, TaskScheduler.FromCurrentSynchronizationContext());
 
         AudioManager.Instance.keydownAudioSource.mute = true;
+        
+        // Quick test to the last card
+        // for (int i = 0; i < 49; i++) 
+        // {
+        //     GetRandomPokerFromPool();
+        // }
     }
 
     public override void OnDestroy() {
@@ -275,10 +280,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
 
     void OnClickedHistoryButton() {
         SFXManager.Play(R.Audios.SfxConfirm);
-        if (m_historyView == null) {
-            m_historyView = new HighAndLowHistoryView(m_checkedPokers);
-        }
-        ViewManager.Instance.Push(m_historyView);
+        Navigator.Push<HighLowHistoryView>(view => view.pokers = m_checkedPokers);
     }
 
     void OnClickedTerminalBtn() {
@@ -320,8 +322,10 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     {
         _isCommendationShowing = true;
         AudioManager.Instance.PauseBgm();
+        BgmManager.Pause();
         await Navigator.Push<CommendView>();
         AudioManager.Instance.UnPauseBgm();
+        BgmManager.Resume();
         SFXManager.Play(R.Audios.SfxBack);
         _isCommendationShowing = false;
     }
@@ -427,6 +431,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
                 // 提前结束
                 timer = 0;
                 AudioManager.Instance.StopEffectAudio();
+                SFXManager.Stop();
                 break;
             }
             if (m_timeLabel != null)
