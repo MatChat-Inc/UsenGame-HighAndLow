@@ -33,6 +33,7 @@ namespace USEN.Games.HighLow
             BgmManager.Play(bgm);
             
             await Assets.Load(GetType().Namespace, "Audio");
+            await Assets.Load("USEN.Games.Roulette", "Audio");
             
             Navigator.PopToRoot();
         }
