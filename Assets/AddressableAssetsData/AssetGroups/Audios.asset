@@ -42,16 +42,19 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Roulette
   - m_GUID: f34532dc56bb0a3478c4d3fe01c3d84a
     m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Roulette
   - m_GUID: cab7f89994c86e94ab23d6cff5040ac5
     m_Address: Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Roulette
   - m_GUID: c37d0f1c63b1649b1a0f344776bfccc9
     m_Address: Assets/Games/High&Low/Audios/sfx_10sec.mp3
     m_ReadOnly: 0
@@ -147,16 +150,19 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Common
   - m_GUID: 96c243a62c5219846b539c103cbcefad
     m_Address: Assets/Games/Common/Commend/Audios/sfx_back.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Common
   - m_GUID: 9e0e34526a56b2d46ac13eca59370680
     m_Address: Assets/Games/Common/Commend/Audios/sfx_select.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    - USEN.Games.Common
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5fb9abfb9f8a51d45b29881337ae0163, type: 2}
   m_SchemaSet:
