@@ -191,7 +191,7 @@ namespace USEN.Games.Roulette
             bottomPanel.confirmButton.gameObject.SetActive(true);
             bottomPanel.yellowButton.gameObject.SetActive(true);
             bottomPanel.blueButton.gameObject.SetActive(true);
-            bottomPanel.redButton.gameObject.SetActive(true);
+            // bottomPanel.redButton.gameObject.SetActive(true);
             
             _isStopping = false;
         }
