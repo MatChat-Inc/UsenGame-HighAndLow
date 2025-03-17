@@ -103,7 +103,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!1 &4808328051194502261
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +517,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3710891072274180753}
     m_Modifications:
+    - target: {fileID: 599468431433827547, guid: 98b9f96af753ec348ad19380f4bcfa41, type: 3}
+      propertyPath: m_overflowMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 841060162257931003, guid: 98b9f96af753ec348ad19380f4bcfa41, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -580,6 +584,10 @@ PrefabInstance:
     - target: {fileID: 2345784658643650753, guid: 98b9f96af753ec348ad19380f4bcfa41, type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866257368203343538, guid: 98b9f96af753ec348ad19380f4bcfa41, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 3248433112587204535, guid: 98b9f96af753ec348ad19380f4bcfa41, type: 3}
       propertyPath: m_Name
