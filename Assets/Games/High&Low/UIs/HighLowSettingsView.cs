@@ -76,9 +76,9 @@ namespace USEN.Games.HighLow
                 EventSystem.current.currentSelectedGameObject == highLowTimeButton.gameObject) 
             {
                 if (Input.GetKey(KeyCode.LeftArrow)) 
-                    ChangeHighLowTimeValue(-5);
+                    ChangeHighLowTimeValue(-10);
                 else if (Input.GetKey(KeyCode.RightArrow)) 
-                    ChangeHighLowTimeValue(+5);
+                    ChangeHighLowTimeValue(+10);
             }
         }
         

@@ -423,7 +423,13 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         var timer = AppConfig.Instance.CurrentHighAndLowTimer + 1;
         // m_isShowTimer = true;
         
-        R.Audios.Sfx10Sec.Play();
+        var audioClip = AppConfig.Instance.CurrentHighAndLowTimer switch {
+            > 25 and <= 35 => R.Audios.Sfx30Sec,
+            > 15 and <= 25 => R.Audios.Sfx20Sec,
+            _ => R.Audios.Sfx10Sec,
+        };
+        
+        audioClip.Play();
         
         while (timer-- > 0) 
         {

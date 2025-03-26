@@ -23,14 +23,14 @@ namespace R
         public static Asset<AudioClip> 見よ勇者は帰る => new("Assets/Games/Common/Commend/Audios/見よ、勇者は帰る.mp3");
         public static Asset<AudioClip> BgmHighLow => new("Assets/Games/High&Low/Audios/bgm_high&low.mp3");
         public static Asset<AudioClip> Sfx10Sec => new("Assets/Games/High&Low/Audios/sfx_10sec.mp3");
+        public static Asset<AudioClip> Sfx20Sec => new("Assets/Games/High&Low/Audios/sfx_20sec.mp3");
+        public static Asset<AudioClip> Sfx30Sec => new("Assets/Games/High&Low/Audios/sfx_30sec.mp3");
         public static Asset<AudioClip> SfxHigh => new("Assets/Games/High&Low/Audios/sfx_high.mp3");
         public static Asset<AudioClip> SfxLow => new("Assets/Games/High&Low/Audios/sfx_low.mp3");
         public static Asset<AudioClip> SfxSendPoker => new("Assets/Games/High&Low/Audios/sfx_send_poker.mp3");
         public static Asset<AudioClip> BgmRouletteLoop => new("Assets/Games/Roulette/Audios/bgm_roulette_loop.mp3");
         public static Asset<AudioClip> SfxRouletteGameDecelerating => new("Assets/Games/Roulette/Audios/sfx_roulette_game_decelerating.mp3");
         public static Asset<AudioClip> SfxRouletteGameRotating => new("Assets/Games/Roulette/Audios/sfx_roulette_game_rotating.mp3");
-        public static AudioClip _20Sec => Resources.Load<AudioClip>("Audio/20sec");
-        public static AudioClip _30Sec => Resources.Load<AudioClip>("Audio/30sec");
         public static AudioClip EntryKeySelect => Resources.Load<AudioClip>("Audio/entry_key_select");
         public static AudioClip KeyBack => Resources.Load<AudioClip>("Audio/key_back");
         public static AudioClip KeyEffect => Resources.Load<AudioClip>("Audio/Key_effect");
