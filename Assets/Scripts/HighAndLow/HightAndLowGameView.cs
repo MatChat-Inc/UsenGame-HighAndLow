@@ -120,9 +120,9 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         ResumeGame();
         
         // Quick test to the last card
-        // if (m_pokerPool.Count > 50)
-        //     for (int i = 0; i < 49; i++)
-        //         GetRandomPokerFromPool();
+        if (m_pokerPool.Count > 50)
+            for (int i = 0; i < 48; i++)
+                GetRandomPokerFromPool();
     }
 
     public override void OnDestroy() {
