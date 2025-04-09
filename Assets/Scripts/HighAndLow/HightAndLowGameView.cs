@@ -83,22 +83,6 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         m_pokerTrashTransform = m_mainViewGameObject.transform.Find("PokerShowTrash");
 
         m_checkRestCountLabel = m_mainViewGameObject.transform.Find("PokerCheckList/RestCountLabel").GetComponent<Text>();
-        var cachedPokerValues = AppConfig.Instance.CheckedPokers;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 13; j++) {
-                if (!cachedPokerValues.Contains(i*16+j)) {
-                    m_pokerPool.Add(i*16+j);
-                    if (m_pokerRestCount.ContainsKey(j)) {
-                        m_pokerRestCount[j]++;
-                    }else
-                    {
-                        m_pokerRestCount.Add(j, 1);
-                    }
-                }
-                var itemPath = string.Format("PokerCheckList/CheckedList/{0}_{1}", i, j);
-                m_checkedItemList.Add(m_mainViewGameObject.transform.Find(itemPath).gameObject);
-            }
-        }
 
         m_timer = m_mainViewGameObject.transform.Find("Foreground/Timer").gameObject;
         m_timeLabel = m_mainViewGameObject.transform.Find("Foreground/Timer/TimeLabel").GetComponent<Text>();
@@ -123,29 +107,6 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         
         _finishDirector = m_mainViewGameObject.transform.Find("Foreground/Finish Animation/Timeline").GetComponent<PlayableDirector>();
         // _resultDirector = m_mainViewGameObject.transform.Find("Foreground/Result Player/Timeline").GetComponent<ResultPlayerDirector>();
-
-        if (cachedPokerValues.Count() > 0) {
-            for (int i = 0; i < cachedPokerValues.Count(); i++)
-            {
-                var value = cachedPokerValues[i];
-                CheckedPoker(value, false);
-                //创建缓存的牌
-                var pokerGo = CreatePoker((EPokers)value);
-                if (i == cachedPokerValues.Count() - 1) {
-                    //最后一张
-                    pokerGo.transform.SetParent(m_pokerShowTransform1);
-                    (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
-                    m_lastPoker = value;
-                }else {
-                    pokerGo.transform.SetParent(m_pokerTrashTransform);
-                    (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
-                    var angle = Random.Range(20, 70);
-                    (pokerGo.transform as RectTransform).localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
-                }
-            }
-
-            m_isWaitContinue = true;
-        }
         
         AssetUtils.LoadAsync<CommendView>().ContinueWith(task => {
             var go = task.Result;
@@ -156,11 +117,12 @@ public class HighAndLowGameView : AbstractView, IViewOperater
 
         AudioManager.Instance.keydownAudioSource.mute = true;
         
+        ResumeGame();
+        
         // Quick test to the last card
-        // for (int i = 0; i < 49; i++) 
-        // {
-        //     GetRandomPokerFromPool();
-        // }
+        // if (m_pokerPool.Count > 50)
+        //     for (int i = 0; i < 49; i++)
+        //         GetRandomPokerFromPool();
     }
 
     public override void OnDestroy() {
@@ -218,19 +180,24 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     {
         m_mainViewGameObject.SetActive(true);
         
-        if (m_pokerShowTransform1.childCount == 0) {
+        if (m_pokerShowTransform1.childCount == 0) 
+        {
             PlayFirst();
         }
-        else if (m_isWaitContinue) {
+        else if (m_isWaitContinue) 
+        {
             // 重连继续上一局
-            R.Audios.SfxSendPoker.Play();
-            var backFaceGO = CreatePoker(EPokers.BackFace);
-            (backFaceGO.transform as RectTransform).rotation = Quaternion.Euler(0f, 180f, 60f);
-            backFaceGO.transform.SetParent(m_pokerShowTransform2);
-            (backFaceGO.transform as RectTransform).DOAnchorPosX(0, 1).SetLink(backFaceGO);
-            var tween = (backFaceGO.transform as RectTransform).DOLocalRotate(new Vector3(0f, 180f, 0f), 1).SetLink(backFaceGO);
-            tween.onComplete += WaitTimer;
-            m_isWaitContinue = false;
+            if (m_pokerPool.Count != 0)
+            { 
+                R.Audios.SfxSendPoker.Play();
+                var backFaceGO = CreatePoker(EPokers.BackFace);
+                (backFaceGO.transform as RectTransform).rotation = Quaternion.Euler(0f, 180f, 60f);
+                backFaceGO.transform.SetParent(m_pokerShowTransform2);
+                (backFaceGO.transform as RectTransform).DOAnchorPosX(0, 1).SetLink(backFaceGO);
+                var tween = (backFaceGO.transform as RectTransform).DOLocalRotate(new Vector3(0f, 180f, 0f), 1).SetLink(backFaceGO);
+                tween.onComplete += WaitTimer;
+                m_isWaitContinue = false; 
+            }
         }
     }
 
@@ -640,9 +607,7 @@ public class HighAndLowGameView : AbstractView, IViewOperater
             AppConfig.Instance.CheckedPokers = checkedPokerValues;
         }
     }
-
     
-
     void UnCheckedAllPokers() {
         m_pokerPool.Clear();
         for (int i = 0; i < 4; i++) {
@@ -650,6 +615,78 @@ public class HighAndLowGameView : AbstractView, IViewOperater
                 m_checkedItemList.ElementAt(i*13 + j).SetActive(false);
                 m_pokerPool.Add(i*16+j);
             }
+        }
+    }
+
+    private void ResumeGame()
+    {
+        var cachedPokerValues = AppConfig.Instance.CheckedPokers;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 13; j++) {
+                if (!cachedPokerValues.Contains(i*16+j)) 
+                {
+                    m_pokerPool.Add(i*16+j);
+                    if (m_pokerRestCount.ContainsKey(j))
+                        m_pokerRestCount[j]++;
+                    else m_pokerRestCount.Add(j, 1);
+                }
+                var itemPath = string.Format("PokerCheckList/CheckedList/{0}_{1}", i, j);
+                m_checkedItemList.Add(m_mainViewGameObject.transform.Find(itemPath).gameObject);
+            }
+        }
+        
+        if (cachedPokerValues.Count() > 0) 
+        {
+            for (int i = 0; i < cachedPokerValues.Count; i++)
+            {
+                var value = cachedPokerValues[i];
+                CheckedPoker(value, false);
+                
+                // Create cached poker
+                var pokerGo = CreatePoker((EPokers)value);
+
+                if (m_pokerPool.Count != 0)
+                {
+                    if (i == cachedPokerValues.Count - 1) 
+                    {
+                        // Last one
+                        pokerGo.transform.SetParent(m_pokerShowTransform1);
+                        (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
+                        m_lastPoker = value;
+                    }
+                    else 
+                    {
+                        pokerGo.transform.SetParent(m_pokerTrashTransform);
+                        (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
+                        var angle = Random.Range(20, 70);
+                        (pokerGo.transform as RectTransform).localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                    }
+                }
+                else
+                {
+                    if (i == cachedPokerValues.Count - 1) 
+                    {
+                        pokerGo.transform.SetParent(m_pokerShowTransform2);
+                        (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
+                        m_lastPoker = value;
+                    }
+                    else if (i == cachedPokerValues.Count - 2) 
+                    {
+                        pokerGo.transform.SetParent(m_pokerShowTransform1);
+                        (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
+                        m_lastPoker = value;
+                    }
+                    else 
+                    {
+                        pokerGo.transform.SetParent(m_pokerTrashTransform);
+                        (pokerGo.transform as RectTransform).anchoredPosition = Vector2.zero;
+                        var angle = Random.Range(20, 70);
+                        (pokerGo.transform as RectTransform).localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                    }
+                }
+            }
+
+            m_isWaitContinue = true;
         }
     }
 }
