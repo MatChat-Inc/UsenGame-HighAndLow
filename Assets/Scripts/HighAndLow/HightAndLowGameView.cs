@@ -316,6 +316,9 @@ public class HighAndLowGameView : AbstractView, IViewOperater
     }
 
     void OnClickedStartTimerBtn() {
+        if (!m_startTimerBtn.isActiveAndEnabled)
+            return;
+        
         if (m_isWaitTimer) {
             ShowTimer();
             m_isWaitTimer = false;
