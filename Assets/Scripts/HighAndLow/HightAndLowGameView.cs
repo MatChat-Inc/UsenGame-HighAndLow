@@ -108,12 +108,12 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         _finishDirector = m_mainViewGameObject.transform.Find("Foreground/Finish Animation/Timeline").GetComponent<PlayableDirector>();
         // _resultDirector = m_mainViewGameObject.transform.Find("Foreground/Result Player/Timeline").GetComponent<ResultPlayerDirector>();
         
-        AssetUtils.LoadAsync<CommendView>().ContinueWith(task => {
-            var go = task.Result;
-            var commendView = go.GetComponent<CommendView>();
-            if (commendView != null) 
-                _audioClipHandle = commendView.PreloadAudio();
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+        // AssetUtils.LoadAsync<CommendView>().ContinueWith(task => {
+        //     var go = task.Result;
+        //     var commendView = go.GetComponent<CommendView>();
+        //     if (commendView != null) 
+        //         _audioClipHandle = commendView.PreloadAudio();
+        // }, TaskScheduler.FromCurrentSynchronizationContext());
 
         AudioManager.Instance.keydownAudioSource.mute = true;
         
@@ -134,9 +134,11 @@ public class HighAndLowGameView : AbstractView, IViewOperater
         m_pokerPool.Clear();
         m_checkedPokers.Clear();
         
-        AssetUtils.Unload<CommendView>();
-        if (_audioClipHandle != null)
-            Addressables.Release(_audioClipHandle.Value);
+        SFXManager.StopAll();
+        
+        // AssetUtils.Unload<CommendView>();
+        // if (_audioClipHandle != null)
+        //     Addressables.Release(_audioClipHandle.Value);
     }
     
     public void Hide()

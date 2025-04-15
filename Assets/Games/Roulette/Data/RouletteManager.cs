@@ -133,7 +133,7 @@ namespace USEN.Games.Roulette
             };
         }
 
-        public RouletteData GetRandomRoulette(int notRepeatCount = 10, string fromCategory = "バツゲーム")
+        public RouletteData GetRandomRoulette(string fromCategory = "バツゲーム", int notRepeatCount = 10)
         {
             var data = db.Table<RouletteData>().ToList();
             if (data.Count == 0) return null;
@@ -143,6 +143,9 @@ namespace USEN.Games.Roulette
                 where roulette.Category == fromCategory
                 select roulette;
             var batuGames = result.ToList();
+            
+            if (_previousRandomIndexes.Count >= batuGames.Count)
+                _previousRandomIndexes.Clear();
             
             int nextIndex;
             Random random = new();
@@ -160,7 +163,14 @@ namespace USEN.Games.Roulette
         
         public async Task AddRoulette(RouletteData roulette)
         {
-            db.Insert(roulette);
+            try {
+                db.Insert(roulette);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[RouletteManager] Add failed: {e.Message}");
+            }
+
             IsDirty = true;
             var response = await API.AddRoulette(roulette);
             
@@ -217,6 +227,11 @@ namespace USEN.Games.Roulette
         {
             db.DeleteAll<RouletteData>();
             IsDirty = true;
+        }
+        
+        public bool ExistsRoulette(RouletteData roulette)
+        {
+            return db.Table<RouletteData>().Any(r => r.ID == roulette.ID);
         }
         
         private void UpdateTable()
