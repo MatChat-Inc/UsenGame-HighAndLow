@@ -18,8 +18,6 @@ public class OuterGlowButton : AudioButton
     public bool outglowOnPressed = true;
     public bool outglowOnSelected = true;
     public bool outglowOnDisabled = false;
-    
-    public bool focusOnEnable = false;
 
     private bool _isGlowing = false;
     

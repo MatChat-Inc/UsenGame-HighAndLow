@@ -2327,7 +2327,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B7\u30F3\u30AD\u30F3\u30B0\u30BF\u30A4\u30E0\u4E2D\u306E\u30A2\u30AB\u30A6\u30F3\u30C8\u30C0\u30A6\u30F3\u79D2\u6570      
+  m_Text: "\u30B7\u30F3\u30AD\u30F3\u30B0\u30BF\u30A4\u30E0\u4E2D\u306E\u30AB\u30A6\u30F3\u30C8\u30C0\u30A6\u30F3\u79D2\u6570      
     <color=#707070>\uFF0810\uFF5E30\u79D2\u307E\u3067\u8A2D\u5B9A\u3067\u304D\u307E\u3059\uFF09</color>"
 --- !u!1 &1671361230066964303
 GameObject:
@@ -6104,7 +6104,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 100.2, y: 0}
-  m_SizeDelta: {x: 234.7723, y: 50}
+  m_SizeDelta: {x: 576.6342, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4709238011061779579
 CanvasRenderer:
@@ -6147,7 +6147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30EC\u30C3\u30C8\u8868\u793A\u8A2D\u5B9A"
+  m_Text: "\u30D0\u30C4\u30B2\u30FC\u30E0\u30EB\u30FC\u30EC\u30C3\u30C8\u306E\u8868\u793A\u8A2D\u5B9A"
 --- !u!1 &5110517393944119166
 GameObject:
   m_ObjectHideFlags: 0
