@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1fd050622a7454baa8720c78f1d386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmMixer: {fileID: 24300002, guid: 5b81721f392a32d469d41a0f9a4711be, type: 2}
+  sfxMixer: {fileID: 24300002, guid: a9f76c1082c381e49ab635b1c564185d, type: 2}
 --- !u!223 &2216862041794747132
 Canvas:
   m_ObjectHideFlags: 0
@@ -332,7 +334,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
