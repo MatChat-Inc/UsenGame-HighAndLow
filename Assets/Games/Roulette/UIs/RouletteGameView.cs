@@ -24,6 +24,7 @@ namespace USEN.Games.Roulette
     public partial class RouletteGameView : Widget
     {
         public RouletteWheel rouletteWheel;
+        public ParticleSystem rouletteParticle;
         public Button startButton;
         public Image backgroundImage;
         public BottomPanel bottomPanel;
@@ -188,7 +189,7 @@ namespace USEN.Games.Roulette
 #endif
         }
         
-        private void OnSpinEnd(string obj)
+        private async void OnSpinEnd(int index, string obj)
         {
             confirmText.text = "もう一度ルーレットを回す";
             
@@ -201,6 +202,30 @@ namespace USEN.Games.Roulette
 #endif
             
             _isStopping = false;
+            
+            // Play sfx
+            rouletteParticle.gameObject.SetActive(true);
+            
+            var sector = rouletteWheel.GetSector(index);
+            var border = sector.transform.Find("Border").gameObject;
+            var lineRenderer = border.GetComponent<LineRenderer>();
+            border.SetActive(true);
+
+            lineRenderer.material.SetColor("_Color", Color.clear);
+            var tween = DOTween.To(
+                () => lineRenderer.material.color,
+                color => lineRenderer.material.SetColor("_Color", color), 
+                new Color(1, 1, 1, 1), 
+                0.5f); 
+            
+            await Task.Delay(2000);
+            DOTween.To(
+                () => lineRenderer.material.color,
+                color => lineRenderer.material.SetColor("_Color", color), 
+                Color.clear, 
+                1f);
+            
+            rouletteParticle.gameObject.SetActive(false);
         }
 
         private async Task SpinWheel()
@@ -260,7 +285,7 @@ namespace USEN.Games.Roulette
                     {
                         SFXManager.Stop();
                         Navigator.PopUntil<RouletteStartView, RouletteData>(RouletteData);
-                    }; 
+                    };
 #if UNITY_ANDROID
                     popup.onOption3 = () => Android.Back();
 #else

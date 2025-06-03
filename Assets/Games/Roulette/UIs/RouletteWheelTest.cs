@@ -19,7 +19,7 @@ namespace USEN.Games.Roulette
         private void Start()
         {
             rouletteWheel.RouletteData = GetRouletteData();
-            rouletteWheel.OnSpinEnd += result =>
+            rouletteWheel.OnSpinEnd += (index, result) =>
             {
                 resultText.text = result;
             };

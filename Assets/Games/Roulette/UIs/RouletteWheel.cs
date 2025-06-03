@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Luna.Extensions.Unity;
 using UnityEngine;
 using TMPro;
@@ -26,8 +27,8 @@ namespace USEN.Games.Roulette
         }
         
         [Header("Wheel Settings")]
-        /// Radius of the wheel in meters.
-        /// If the wheel is too small, you should set render mode of the canvas to "Screen Space - Camera" and adjust the scale factor to 9.353078.
+        // Radius of the wheel in meters.
+        // If the wheel is too small, you should set render mode of the canvas to "Screen Space - Camera" and adjust the scale factor to 9.353078.
         public float radius = 3.2f;
         public int segmentsPerSector = 10;
         public float sectorInterval = 0.05f;
@@ -36,6 +37,12 @@ namespace USEN.Games.Roulette
         public bool clockwise = true;
 
         public Material material;
+        
+        [Header("Border Settings")]
+        public bool drawBorder = false;             // whether to draw a border around the sectors
+        public float borderWidth = 0.2f;           // thickness of the border line
+        public Color borderColor = Color.white; // color of the border
+        // public Material borderMaterial;             // assign a simple unlit material
         
         [Header("Text Settings")]
         public TMP_FontAsset font;
@@ -50,8 +57,13 @@ namespace USEN.Games.Roulette
         /// Animation curve to control the spin speed, which only works for `Spin(duration)` method.
         public AnimationCurve spinCurve; 
         
+        
+        // Event triggered when the spin starts.
         public event Action OnSpinStart;
-        public event Action<string> OnSpinEnd;
+        
+        // Event triggered when the spin ends, passing the index of the winning sector and its content.
+        public event Action<int, string> OnSpinEnd;
+        
 
         private Canvas _canvas;
 
@@ -60,6 +72,7 @@ namespace USEN.Games.Roulette
         private float _startAngle;
         
         private bool _stopSpin = false;
+        
 
         public List<RouletteSector> Sectors => RouletteData?.sectors;
         
@@ -134,7 +147,7 @@ namespace USEN.Games.Roulette
 
             // Announce the prize
             // Debug.Log("Result: " + Sectors[targetSectorIndex].content);
-            OnSpinEnd?.Invoke(GetResult(targetSectorIndex));
+            OnSpinEnd?.Invoke(targetSectorIndex, GetResult(targetSectorIndex));
         }
         
         /// Coroutine to spin the wheel until stop signal.
@@ -191,7 +204,7 @@ namespace USEN.Games.Roulette
 
             // Announce the prize
             Debug.Log("Result: " + Sectors[targetSectorIndex].content);
-            OnSpinEnd?.Invoke(GetResult(targetSectorIndex));
+            OnSpinEnd?.Invoke(targetSectorIndex, GetResult(targetSectorIndex));
             
             _stopSpin = false;
         }
@@ -229,9 +242,17 @@ namespace USEN.Games.Roulette
                 Destroy(child.gameObject);
             }
         }
+        
+        public GameObject GetSector(int index)
+        {
+            if (index < 0 || index >= Sectors.Count)
+                return null;
+
+            return transform.Find("Sector_" + index)?.gameObject;
+        }
 
         private void CreateSector(int index, float sectorAngle)
-        { 
+        {
             float startAngle = (index - 0.5f) * sectorAngle;
             float endAngle = startAngle + sectorAngle;
 
@@ -269,14 +290,15 @@ namespace USEN.Games.Roulette
             Color.RGBToHSV(Sectors[index].color, out float h, out float s, out float v);
             var centerColor = Sectors[index].color;
             centerColor = centerColor.WithSaturation(s * 0.95f).WithAlpha(centerColor.a);
-            colors.Add(centerColor); 
+            colors.Add(centerColor);
             
             for (int j = 0; j <= segmentsPerSector; j++)
             {
-                float angle = Mathf.Lerp(startAngle, endAngle, j * (1 - sectorInterval * 360f / sectorAngle) / segmentsPerSector);
+                float lerpFactor = j * (1 - sectorInterval * 360f / sectorAngle) / segmentsPerSector;
+                float angle = Mathf.Lerp(startAngle, endAngle, lerpFactor);
                 Vector3 point = new Vector3(
-                    Mathf.Cos(Mathf.Deg2Rad * angle) * radius, 
-                    Mathf.Sin(Mathf.Deg2Rad * angle) * radius, 
+                    Mathf.Cos(Mathf.Deg2Rad * angle) * radius,
+                    Mathf.Sin(Mathf.Deg2Rad * angle) * radius,
                     0);
                 vertices.Add(point);
                 
@@ -300,7 +322,28 @@ namespace USEN.Games.Roulette
                 material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
             meshRenderer.material = material;
 
-            // Add text
+            // Add border using LineRenderer
+            if (drawBorder)
+            {
+                GameObject borderGO = new GameObject("Border") { active = false } ;
+                borderGO.transform.SetParent(sectorGO.transform, false);
+                var line = borderGO.AddComponent<LineRenderer>();
+                line.useWorldSpace = false;
+                line.loop = true;
+                line.positionCount = vertices.Count;
+                line.startWidth = borderWidth;
+                line.endWidth = borderWidth;
+                line.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
+                line.startColor = borderColor;
+                line.endColor = borderColor;
+                line.sortingOrder = 2;
+                // line.material.SetColor("_Color", new Color(1f, 1f, 1f, 0.3f));
+            
+                Vector3[] borderPoints = vertices.Skip(1).ToArray(); // Outer points only
+                line.SetPositions(borderPoints);
+            }
+
+            // Add text label
             GameObject textGO = new GameObject("Text_" + index);
             textGO.transform.SetParent(sectorGO.transform, false);
 
@@ -308,6 +351,8 @@ namespace USEN.Games.Roulette
             text.text = Sectors[index].content;
             text.horizontalAlignment = HorizontalAlignmentOptions.Left;
             text.verticalAlignment = VerticalAlignmentOptions.Middle;
+            text.enableWordWrapping = true;
+            text.overflowMode = TextOverflowModes.Ellipsis;
             text.sortingOrder = 2;
             text.font = font ? font : Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             // text.material = fontMaterial ? fontMaterial : text.font.material;
@@ -318,25 +363,18 @@ namespace USEN.Games.Roulette
 
             float midAngle = (startAngle + endAngle) / 2f;
             Vector3 textPos = new Vector3(
-                Mathf.Cos(Mathf.Deg2Rad * midAngle) * textDistanceFromCenter, 
-                Mathf.Sin(Mathf.Deg2Rad * midAngle) * textDistanceFromCenter, 
+                Mathf.Cos(Mathf.Deg2Rad * midAngle) * textDistanceFromCenter,
+                Mathf.Sin(Mathf.Deg2Rad * midAngle) * textDistanceFromCenter,
                 0);
             textGO.transform.localPosition = textPos;
 
             // Rotate the text to align with the sector
             textGO.transform.localRotation = Quaternion.Euler(0, 0, midAngle - 180f);
 
-            // Adjust text size to fit within the sector
-            // StartCoroutine(AdjustTextSize(text, radius));
-            
-            // Calculate the size of the text area to fit within the sector
-            float sectorRadian = Mathf.Deg2Rad * sectorAngle / 2; // Half the angle of the sector in radians
-            float textWidth = 2 * radius * Mathf.Tan(sectorRadian); // Width of the text box based on the arc length
-            float textHeight = radius * Mathf.Sin(sectorRadian); // Height of the text box
-
-            // Set the size of the text area
             RectTransform rectTransform = textGO.GetComponent<RectTransform>();
             rectTransform.pivot = new Vector2(1f, 0.5f);
+            float sectorRadian = Mathf.Deg2Rad * sectorAngle / 2;
+            float textHeight = radius * Mathf.Sin(sectorRadian);
             rectTransform.sizeDelta = new Vector2((radius - textDistanceFromCenter) * 0.95f, textHeight);
         }
         
