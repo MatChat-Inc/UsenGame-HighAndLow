@@ -42,7 +42,11 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
         
         _exitButton = m_mainViewGameObject.transform.Find("BottomPanel/ExitButton").GetComponent<Button>();
         _exitButton.onClick.AddListener(() => {
-            USENSceneManager.Instance.LoadScene("GameEntries");
+#if UNITY_ANDROID
+            Android.Back();
+#else
+            Application.Quit();
+#endif
         });
         
         AudioManager.Instance.SetBgmVolume(AppConfig.Instance.BGMVolume);
