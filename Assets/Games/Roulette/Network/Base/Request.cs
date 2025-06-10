@@ -18,8 +18,8 @@ namespace USEN
         {
             Client = new()
             {
-                BaseAddress = new Uri("https://api-stg.tvsignage.usen.com/"),
-                // BaseAddress = new Uri("https://api.tvsignage.usen.com/"),
+                // BaseAddress = new Uri("https://api-stg.tvsignage.usen.com/"),
+                BaseAddress = new Uri("https://api.tvsignage.usen.com/"),
                 DefaultRequestHeaders = {
                     Accept = { new("application/json") },
                     Authorization = new("750900428"),
