@@ -82,7 +82,8 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
             //     USENSceneManager.Instance.LoadScene("GameEntries");
 #if UNITY_ANDROID
             if (m_mainViewGameObject.activeInHierarchy)
-                Android.Back();
+                Application.Quit();
+                // Android.Back();
 #endif
         }
     }
