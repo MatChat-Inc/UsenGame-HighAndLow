@@ -1,25 +1,45 @@
 name: Build project
 
-on: 
+on:
   workflow_call:
 
 jobs:
   # Build
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+    name: Build for ${{ matrix.platform.name }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform:
-          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
-          # - StandaloneWindows # Build a Windows standalone.
-          - StandaloneWindows64 # Build a Windows 64-bit standalone.
-          - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          - iOS # Build an iOS player.
-          - Android # Build an Android .apk standalone app.
-          # - WebGL # WebGL.
+        platform:
+          - name: Windows
+            system: "ubuntu-latest"
+            target: "StandaloneWindows64"
+          - name: macOS
+            system: "macos-latest"
+            target: "StandaloneOSX"
+          - name: Linux
+            system: "ubuntu-latest"
+            target: "StandaloneLinux64"
+          #          - name: Web
+          #            system: "ubuntu-latest"
+          #            target: "WebGL"
+          - name: Android
+            system: "ubuntu-latest"
+            target: "Android"
+          - name: Android-Debug
+            system: "ubuntu-latest"
+            target: "Android"
+            debug: true
+    #          - name: iOS
+    #            system: "macos-latest"
+    #            target: "iOS"
     steps:
+      # Get repository name
+      - name: get-name
+        run: |
+          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+      
       # Checkout
       - uses: actions/checkout@v4
         with:
@@ -28,15 +48,20 @@ jobs:
           submodules: recursive
 
       # Free disk space
-      - if: matrix.targetPlatform == 'Android' || matrix.targetPlatform == 'WebGL'
+      - if: matrix.platform.target == 'Android' || matrix.platform.target == 'WebGL'
         uses: jlumbroso/free-disk-space@v1.3.1
 
       # Cache
       - uses: actions/cache@v4
         with:
           path: Library
-          key: Library-${{ matrix.targetPlatform }}
+          key: Library-${{ matrix.platform.target }}
           restore-keys: Library-
+
+      # Pre-processor symbols
+      - name: Apply csc.rsp (pre-processor symbols)
+        if: matrix.platform.debug == true
+        run: echo -define:DEBUG >> Assets/csc.rsp
 
       # Build
       - uses: game-ci/unity-builder@v4
@@ -46,21 +71,20 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: ${{ matrix.targetPlatform }}
+          targetPlatform: ${{ matrix.platform.target }}
+          buildName: "${{ env.REPO_NAME }}-${{ matrix.platform.name }}"
+          allowDirtyBuild: true
+          androidKeystoreName: debug.keystore
+          androidKeystoreBase64: ${{ secrets.USEN_ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.USEN_ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.USEN_ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.USEN_ANDROID_KEYSTORE_PASS }}
 
       # Compress
-      # - name: Compress Directory
-      #   if: matrix.targetPlatform != 'Android' && matrix.targetPlatform != 'WebGL'
-      #   uses: somaz94/compress-decompress@v1
-      #   with:
-      #     command: compress
-      #     source: build/${{ matrix.targetPlatform }}
-      #     # dest: 'build'
-      #     format: zip
       - name: Compress directory as zip
         run: |
-          cd build/${{ matrix.targetPlatform }}
-          sudo zip -r ../${{ matrix.targetPlatform }}.zip *
+          cd build/${{ matrix.platform.target }}
+          sudo zip -r ../${{ matrix.platform.name }}.zip *
 
       - name: Display structure of build files
         run: ls -R /home/runner/work/
@@ -68,6 +92,14 @@ jobs:
       # Output
       - name : Upload Artifact
         uses: actions/upload-artifact@v4
+        if: matrix.platform.target != 'Android'
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}.zip
+          name: Build-${{ matrix.platform.name }}
+          path: build/${{ matrix.platform.name }}.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        if: matrix.platform.target == 'Android'
+        with:
+          name: Build-${{ matrix.platform.name }}
+          path: build/${{ matrix.platform.target }}/${{ env.REPO_NAME }}-${{ matrix.platform.name }}.apk
