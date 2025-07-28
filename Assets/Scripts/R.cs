@@ -11,9 +11,9 @@ namespace R
 {
     public static class Audios
     {
-        public static Asset<AudioClip> SfxBack => new("Assets/Games/Common/Commend/Audios/sfx_back.mp3");
-        public static Asset<AudioClip> SfxConfirm => new("Assets/Games/Common/Commend/Audios/sfx_confirm.mp3");
-        public static Asset<AudioClip> SfxSelect => new("Assets/Games/Common/Commend/Audios/sfx_select.mp3");
+        public static Asset<AudioClip> SfxBack => new("Assets/Games/Common/Audios/sfx_back.mp3");
+        public static Asset<AudioClip> SfxConfirm => new("Assets/Games/Common/Audios/sfx_confirm.mp3");
+        public static Asset<AudioClip> SfxSelect => new("Assets/Games/Common/Audios/sfx_select.mp3");
         public static Asset<AudioClip> タンホイザーとアイーダメドレー => new("Assets/Games/Common/Commend/Audios/タンホイザーとアイーダメドレー.mp3");
         public static Asset<AudioClip> ハレルヤ => new("Assets/Games/Common/Commend/Audios/ハレルヤ.mp3");
         public static Asset<AudioClip> 威風堂々 => new("Assets/Games/Common/Commend/Audios/威風堂々.mp3");

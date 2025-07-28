@@ -7,7 +7,11 @@ namespace USEN.Games.Common
 {
     public class UsenRemoteControlHandler : MonoBehaviour
     {
-        public void OnAndroidKeyDown(string keyName) {
+        public void OnAndroidKeyDown(string keyName) 
+        {
+            Debug.Log($"[UsenRemoteControlHandler] Key pressed: {keyName}");
+            UsenEvents.OnRemoconButtonClicked.Invoke(this, keyName);
+            
             switch (keyName)
             {
                 case "red":
@@ -24,6 +28,9 @@ namespace USEN.Games.Common
                     break;
                 case "terminal":
                     UsenEvents.OnRemoconTerminalButtonClicked.Invoke(this, EventArgs.Empty);
+                    break;
+                case "home":
+                    UsenEvents.OnRemoconHomeButtonClicked.Invoke(this, EventArgs.Empty);
                     break;
             }
         }

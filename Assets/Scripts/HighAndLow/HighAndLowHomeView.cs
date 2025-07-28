@@ -43,7 +43,8 @@ public class HighAndLowHomeView : AbstractView, IViewOperater
         _exitButton = m_mainViewGameObject.transform.Find("BottomPanel/ExitButton").GetComponent<Button>();
         _exitButton.onClick.AddListener(() => {
 #if UNITY_ANDROID
-            Android.Back();
+            // Android.Back();
+            Application.Quit();
 #else
             Application.Quit();
 #endif

@@ -70,7 +70,8 @@ public class HighAndLowTerminalView : AbstractView
         SFXManager.Play(R.Audios.SfxBack);
         Hide();
 #if UNITY_ANDROID
-        Android.Back();
+        // Android.Back();
+        Application.Quit();
 #endif
     }
 }
