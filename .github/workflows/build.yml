@@ -31,6 +31,7 @@ jobs:
             system: "ubuntu-latest"
             target: "Android"
             debug: true
+            parameters: "-development"
     #          - name: iOS
     #            system: "macos-latest"
     #            target: "iOS"
@@ -56,7 +57,7 @@ jobs:
         with:
           path: Library
           key: Library-${{ matrix.platform.target }}
-          restore-keys: Library-
+          restore-keys: Library-${{ matrix.platform.target }}
 
       # Pre-processor symbols
       - name: Apply csc.rsp (pre-processor symbols)
@@ -73,6 +74,7 @@ jobs:
         with:
           targetPlatform: ${{ matrix.platform.target }}
           buildName: "${{ env.REPO_NAME }}-${{ matrix.platform.name }}"
+          customParameters: "${{ matrix.platform.parameters }}"
           allowDirtyBuild: true
           androidKeystoreName: debug.keystore
           androidKeystoreBase64: ${{ secrets.USEN_ANDROID_KEYSTORE_BASE64 }}
