@@ -7,7 +7,7 @@ jobs:
   # Build
   buildForAllSupportedPlatforms:
     name: Build for ${{ matrix.platform.name }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform.system }}
     strategy:
       fail-fast: false
       matrix:
@@ -16,14 +16,14 @@ jobs:
             system: "ubuntu-latest"
             target: "StandaloneWindows64"
           - name: macOS
-            system: "macos-latest"
+            system: "ubuntu-latest"
             target: "StandaloneOSX"
           - name: Linux
             system: "ubuntu-latest"
             target: "StandaloneLinux64"
-          #          - name: Web
-          #            system: "ubuntu-latest"
-          #            target: "WebGL"
+#          - name: Web
+#            system: "ubuntu-latest"
+#            target: "WebGL"
           - name: Android
             system: "ubuntu-latest"
             target: "Android"
@@ -32,9 +32,9 @@ jobs:
             target: "Android"
             debug: true
             parameters: "-development"
-    #          - name: iOS
-    #            system: "macos-latest"
-    #            target: "iOS"
+#          - name: iOS
+#            system: "macos-latest"
+#            target: "iOS"
     steps:
       # Get repository name
       - name: get-name
@@ -51,12 +51,22 @@ jobs:
       # Free disk space
       - if: matrix.platform.target == 'Android' || matrix.platform.target == 'WebGL'
         uses: jlumbroso/free-disk-space@v1.3.1
-
-      # Cache
-      - uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-${{ matrix.platform.target }}
+      
+#      # Cache
+#      - uses: actions/cache@v4
+#        with:
+#          path: Library
+#          key: Library-${{ matrix.platform.name }}
+#          restore-keys: Library-
+#
+#      # Process cache
+#      #   - delete: Library/Bee
+#      - name: Process cache
+#        run: |
+#          if [ -d "Library/Bee" ]; then
+#            echo "Deleting Library/Bee directory to avoid cache issues"
+#            rm -rf Library/Bee
+#          fi
 
       # Pre-processor symbols
       - name: Apply csc.rsp (pre-processor symbols)
