@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Luna;
 using Luna.UI;
 using Luna.UI.Navigation;
@@ -19,7 +20,7 @@ namespace USEN.Games.Common
         public AudioSource audioSource;
         public BottomPanel bottomPanel;
         
-        public List<VideoClip> videoClips;
+        public List<string> videoClips;
         public List<AssetReferenceT<AudioClip>> audioClips;
 
         // public int index;
@@ -33,8 +34,14 @@ namespace USEN.Games.Common
             
             if (index < videoClips.Count)
             {
-                videoPlayer.clip = videoClips[index];
+                string path = Path.Combine(Application.streamingAssetsPath, videoClips[index]);
+                
+                videoPlayer.source = VideoSource.Url;
+                videoPlayer.url = path;
                 videoPlayer.Prepare();
+                
+                // videoPlayer.clip = videoClips[index];
+                // videoPlayer.Prepare();
             }
             
             videoPlayer.prepareCompleted += OnVideoPrepared;

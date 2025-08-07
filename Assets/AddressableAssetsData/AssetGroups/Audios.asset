@@ -147,24 +147,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: c63c7dfcd4c00394981d30509fc0dc01
-    m_Address: Assets/Games/Common/Commend/Audios/sfx_confirm.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-    - USEN.Games.Common
   - m_GUID: 96c243a62c5219846b539c103cbcefad
-    m_Address: Assets/Games/Common/Commend/Audios/sfx_back.mp3
+    m_Address: Assets/Games/Common/Audios/sfx_back.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-    - USEN.Games.Common
+  - m_GUID: c63c7dfcd4c00394981d30509fc0dc01
+    m_Address: Assets/Games/Common/Audios/sfx_confirm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   - m_GUID: 9e0e34526a56b2d46ac13eca59370680
-    m_Address: Assets/Games/Common/Commend/Audios/sfx_select.mp3
+    m_Address: Assets/Games/Common/Audios/sfx_select.mp3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-    - USEN.Games.Common
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5fb9abfb9f8a51d45b29881337ae0163, type: 2}
   m_SchemaSet:

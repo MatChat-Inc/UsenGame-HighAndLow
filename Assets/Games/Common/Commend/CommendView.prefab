@@ -292,10 +292,10 @@ MonoBehaviour:
   audioSource: {fileID: 7643995041477312345}
   bottomPanel: {fileID: 414895615804667055}
   videoClips:
-  - {fileID: 32900000, guid: 4d9c1cc1b73271f499782ac8d0547b9a, type: 3}
-  - {fileID: 32900000, guid: d6b1d12c773dd1a4e9f6b91bbbed07f9, type: 3}
-  - {fileID: 32900000, guid: 21f747bc3409eff47859d88f30983d79, type: 3}
-  - {fileID: 32900000, guid: fe587863fc6693540809c9e0deb62690, type: 3}
+  - "Videos/1-\u6804\u5149\u3092\u305F\u305F\u3048\u3066.mp4"
+  - "Videos/2-\u898B\u3088\u3001\u52C7\u8005\u306F\u5E30\u308B.mp4"
+  - "Videos/3-\u5A01\u98A8\u5802\u3005.mp4"
+  - "Videos/4-\u30CF\u30EC\u30EB\u30E4.mp4"
   audioClips:
   - m_AssetGUID: 4832fe1ee69b84c44a81aa599ae836f4
     m_SubObjectName: 
